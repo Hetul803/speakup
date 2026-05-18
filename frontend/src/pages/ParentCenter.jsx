@@ -74,7 +74,7 @@ export default function ParentCenter() {
       profiles: dashboards.map(({ profile, dashboard }) => ({
         profile,
         summary: dashboard,
-        childDeviceUrl: buildDeviceUrl(profile.id),
+        dedicatedDeviceUrl: buildDeviceUrl(profile.id),
       })),
       note: 'Synthetic/demo reports should not be treated as clinical records.',
     }
@@ -108,7 +108,7 @@ export default function ParentCenter() {
           <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">Parent command center</p>
           <h1 className="text-3xl font-bold text-gray-950 mt-1">Manage multiple communicators from one private dashboard.</h1>
           <p className="text-gray-600 mt-2 max-w-3xl">
-            Parents can watch progress, open the right profile, send a child-only tablet link, export reports, and ask Gemma 4 for profile-specific summaries.
+            Parents and caregivers can watch progress, open the right profile, send a dedicated tablet link, export reports, and ask Gemma 4 for profile-specific summaries.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -188,11 +188,11 @@ export default function ParentCenter() {
                   </div>
 
                   <div className="mt-5 bg-white/82 border border-gray-100 rounded-xl p-4">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-teal-700 mb-2">Child-only device link</p>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-teal-700 mb-2">Dedicated device link</p>
                     <p className="text-sm text-gray-600 break-all">{buildDeviceUrl(profile.id)}</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3">
                       <button onClick={() => navigate(`/device/${profile.id}`)} className="inline-flex items-center justify-center gap-2 bg-amber-50 text-amber-800 py-2 rounded-xl text-sm font-semibold hover:bg-amber-100">
-                        <LockKeyhole className="w-4 h-4" /> Open Child Device
+                        <LockKeyhole className="w-4 h-4" /> Open Device Mode
                       </button>
                       <button onClick={() => copyDeviceLink(profile)} className="inline-flex items-center justify-center gap-2 bg-gray-100 text-gray-700 py-2 rounded-xl text-sm font-semibold hover:bg-gray-200">
                         <Clipboard className="w-4 h-4" /> {copied === profile.id ? 'Copied' : 'Copy Link'}

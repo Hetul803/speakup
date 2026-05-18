@@ -1,6 +1,6 @@
 # SpeakUp 🗣️
 
-**A privacy-first, local AI communication companion for minimally speaking and non-speaking communicators.**
+**A privacy-first, local AI communication companion for people who cannot always rely on speech.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Gemma 4](https://img.shields.io/badge/AI-Gemma%204-blue)](https://ai.google.dev/gemma)
@@ -19,6 +19,7 @@
 ## The Problem
 
 - **3.5 million** non-verbal or minimally verbal individuals in the US
+- Autism is one important use case, but the need is broader: AAC users, nonspeaking children and adults, people with apraxia, aphasia, cerebral palsy, developmental disabilities, injury, medical fatigue, or temporary speech loss may all need support.
 - Traditional AAC (Augmentative & Alternative Communication) devices cost **$6,000–$12,000**
 - Most systems are **static** — they provide buttons, but cannot learn each person's personal signals
 - Sensitive communication data sent to **cloud servers** — a privacy violation
@@ -32,7 +33,7 @@ SpeakUp runs **100% locally** on any laptop or tablet. It:
 3. **Learns each profile's unique communication patterns** through caregiver feedback
 4. **Speaks the interpreted phrase aloud** using on-device TTS
 5. Keeps communication data on-device for inference after the Gemma 4 model is downloaded
-6. Gives parents a **command center** for multiple communicator profiles, alerts, reports, care-team notes, and child-only tablet links
+6. Gives parents and caregivers a **command center** for multiple communicator profiles, alerts, reports, care-team notes, and dedicated tablet links
 
 ```
 Communicator points at cup + makes "mmm" sound

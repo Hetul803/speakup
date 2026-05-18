@@ -21,8 +21,8 @@ Deadline: May 18, 2026 at 11:59 PM UTC (6:59 PM CDT in Chicago).
 ## Demo Flow
 
 1. Open the app and click `Open Demo`.
-2. Show Parent Center with Emma Demo and Noah Demo, separate care plans, alerts, and child-only device links.
-3. Open Emma's child device mode to show how one iPad can be focused on one communicator.
+2. Show Parent Center with Emma Demo and Noah Demo, separate care plans, alerts, and dedicated device links.
+3. Open Emma's dedicated device mode to show how one iPad can be focused on one communicator.
 4. Start a new communication with visual card + gesture + sound + camera frame.
 5. Hit `Interpret with Gemma 4`.
 6. Show the spoken phrase, confidence, explanation, alternatives, input channels, and model tag.

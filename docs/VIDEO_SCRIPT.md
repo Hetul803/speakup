@@ -31,7 +31,7 @@ VOICEOVER:
 
 *[Show Parent Center with Emma Demo and Noah Demo.]*
 
-"One parent can manage multiple communicators, each with separate memory, therapist contacts, alerts, and a child-only tablet link."
+"One parent or caregiver can manage multiple communicators, each with separate memory, therapist contacts, alerts, and a dedicated tablet link."
 
 *[Show visual card grid — adult taps 'water' card]*
 

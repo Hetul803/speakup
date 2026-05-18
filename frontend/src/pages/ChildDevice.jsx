@@ -24,7 +24,7 @@ export default function ChildDevice() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 items-stretch">
           <div>
             <div className="inline-flex items-center gap-2 bg-amber-50 text-amber-800 border border-amber-100 px-3 py-1.5 rounded-full text-sm font-semibold mb-5">
-              <LockKeyhole className="w-4 h-4" /> Child-only device mode
+              <LockKeyhole className="w-4 h-4" /> Dedicated device mode
             </div>
             <div className="flex items-center gap-4">
               <div className="w-20 h-20 rounded-3xl text-white flex items-center justify-center text-4xl font-bold shadow-sm" style={{ backgroundColor: profile.avatar_color }}>
@@ -36,7 +36,7 @@ export default function ChildDevice() {
               </div>
             </div>
             <p className="text-gray-600 mt-5 max-w-2xl">
-              This screen keeps the experience focused on one communicator. Parents can manage every profile from Parent Center, but this iPad link opens only {profile.name}&apos;s communication tools.
+              This screen keeps the experience focused on one communicator. Parents and caregivers can manage every profile from Parent Center, but this iPad link opens only {profile.name}&apos;s communication tools.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
               <button onClick={() => navigate(`/communicate/${profile.id}`)} className="h-24 inline-flex items-center justify-center gap-3 bg-teal-600 text-white rounded-2xl text-lg font-bold hover:bg-teal-700">
@@ -61,7 +61,7 @@ export default function ChildDevice() {
               </div>
               <div className="flex gap-3">
                 <Home className="w-5 h-5 text-teal-600 flex-shrink-0" />
-                <p className="text-sm text-gray-600">Parent Center still manages all profiles on the parent device.</p>
+                <p className="text-sm text-gray-600">Parent Center still manages all profiles on the caregiver device.</p>
               </div>
             </div>
           </aside>

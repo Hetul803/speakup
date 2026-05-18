@@ -2,42 +2,79 @@ import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { childrenAPI, demoAPI } from '../api/client'
 import {
-  Plus,
-  MessageCircle,
+  Accessibility,
+  Activity,
+  ArrowRight,
   BarChart2,
-  Stethoscope,
+  Bell,
+  Bot,
+  Brain,
+  Camera,
+  ClipboardCheck,
+  Cpu,
+  Download,
   Edit,
+  FlaskConical,
+  Hand,
+  HeartPulse,
+  Home as HomeIcon,
+  LifeBuoy,
+  LockKeyhole,
+  MessageCircle,
+  Mic,
+  Plus,
+  ShieldCheck,
+  Sparkles,
+  Stethoscope,
+  Trash2,
+  Users,
+  Volume2,
   Wifi,
   WifiOff,
-  Cpu,
-  FlaskConical,
-  Trash2,
-  Bot,
-  Camera,
-  Mic,
-  Hand,
-  Volume2,
-  ShieldCheck,
-  Bell,
-  Download,
-  LockKeyhole,
-  ArrowRight,
-  Users,
-  Home as HomeIcon,
 } from 'lucide-react'
+
+const AUDIENCE = [
+  {
+    icon: Brain,
+    title: 'Autistic and neurodivergent communicators',
+    text: 'For people whose sounds, gestures, routines, sensory needs, or AAC choices carry meaning before words arrive.',
+  },
+  {
+    icon: Accessibility,
+    title: 'AAC users and nonspeaking people',
+    text: 'For children, teens, and adults who communicate through pointing, cards, devices, expressions, or partner interpretation.',
+  },
+  {
+    icon: HeartPulse,
+    title: 'Aphasia, apraxia, motor speech, and medical needs',
+    text: 'For moments when speech is unreliable because of stroke recovery, motor planning, cerebral palsy, fatigue, or care routines.',
+  },
+  {
+    icon: LifeBuoy,
+    title: 'Parents, caregivers, teachers, and therapists',
+    text: 'For the support team that needs clearer logs, safer handoffs, and one shared memory of what each signal usually means.',
+  },
+]
 
 const SIGNALS = [
   { icon: Mic, label: 'Sound', detail: 'hums, cries, mmm, breathing' },
   { icon: Hand, label: 'Gesture', detail: 'pointing, reaching, covering ears' },
   { icon: Camera, label: 'Context', detail: 'cup, toy, door, bright window' },
-  { icon: Volume2, label: 'Voice', detail: 'spoken phrase and confirmation' },
+  { icon: Volume2, label: 'Output', detail: 'spoken phrase, card, or caregiver summary' },
+]
+
+const LOOP = [
+  ['1. Capture', 'Audio, gesture, camera context, routine, and caregiver notes.'],
+  ['2. Compare', 'Gemma 4 checks the selected communicator profile and confirmed history.'],
+  ['3. Speak', 'The app suggests a plain-language intent and says it aloud.'],
+  ['4. Learn', 'A caregiver confirms or corrects so the next moment gets sharper.'],
 ]
 
 const PARENT_POWERS = [
-  { icon: Users, label: 'Manage every profile', text: 'Different children or communicators keep separate memory, notes, therapist contacts, and device links.' },
-  { icon: Bell, label: 'Know what changed', text: 'Review urgent signals, unconfirmed moments, weekly communication counts, and learned patterns.' },
-  { icon: LockKeyhole, label: 'Child-only device mode', text: 'Open a dedicated launch link for one profile on an iPad or tablet.' },
-  { icon: Download, label: 'Export care reports', text: 'Share progress with a therapist, teacher, or support team without cloud accounts.' },
+  { icon: Users, label: 'Select the current communicator', text: 'One parent can manage several named profiles without mixing memories or care notes.' },
+  { icon: LockKeyhole, label: 'Assign a dedicated tablet', text: 'Each iPad or tablet can open one profile directly for a calmer, simpler experience.' },
+  { icon: Bell, label: 'Catch what needs review', text: 'See urgent signals, unconfirmed predictions, recent activity, and learned patterns.' },
+  { icon: Download, label: 'Export progress for care teams', text: 'Share a clean report with therapists, teachers, or family without exposing other profiles.' },
 ]
 
 export default function Home() {
@@ -106,26 +143,43 @@ export default function Home() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 relative">
-      <section className="grid grid-cols-1 xl:grid-cols-[1.05fr_0.95fr_360px] gap-5 mb-6">
+      <section className="grid grid-cols-1 xl:grid-cols-[1.25fr_0.8fr_340px] gap-5 mb-6">
         <div className="quiet-panel border border-white/70 rounded-2xl p-6 shadow-sm">
           <div className="inline-flex items-center gap-2 text-teal-800 font-semibold text-sm mb-4 bg-teal-50 border border-teal-100 px-3 py-1.5 rounded-full">
-            <ShieldCheck className="w-4 h-4" /> Built for private, everyday communication
+            <ShieldCheck className="w-4 h-4 flex-shrink-0" /> Gemma 4 assistive communication
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-950 max-w-3xl leading-tight">
-            SpeakUp helps minimally speaking and non-speaking people turn personal signals into words.
+            SpeakUp is for people who cannot always rely on speech.
           </h1>
-          <p className="text-gray-600 mt-4 max-w-2xl text-base">
-            It is for families, caregivers, therapists, teachers, and communicators who use sounds, gestures, pointing, cards, routines, or camera context when speech is hard. Gemma 4 checks the person&apos;s memory, suggests a phrase, speaks it aloud, and learns when a caregiver confirms.
+          <p className="text-gray-700 mt-4 max-w-3xl text-base">
+            Autism is one important use case, but SpeakUp is broader: it supports minimally speaking and non-speaking communicators of any age, including AAC users, people with apraxia or aphasia, medically complex people, and anyone whose sounds, gestures, expressions, or context need to become clearer words.
           </p>
-          <div className="grid grid-cols-1 gap-3 mt-6">
+
+          <div className="grid grid-cols-1 2xl:grid-cols-3 gap-3 mt-6">
             {[
-              ['Who', 'Minimally speaking or non-speaking communicators of any age.'],
-              ['What', 'A local AI companion that interprets signals and speaks likely intent.'],
-              ['How it helps', 'Less guessing, better history, stronger care-team handoffs.'],
+              ['Who uses it', 'The communicator, plus the parent, caregiver, therapist, teacher, or support worker helping them.'],
+              ['What it does', 'Combines sound, gesture, camera context, routine, and memory to suggest likely intent.'],
+              ['Why it matters', 'Reduces guessing, captures patterns, and gives every support person the same history.'],
             ].map(([title, text]) => (
-              <div key={title} className="bg-white/82 border border-gray-100 rounded-xl p-4">
+              <div key={title} className="bg-white/88 border border-gray-100 rounded-xl p-4 min-h-[96px]">
                 <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">{title}</p>
-                <p className="text-sm text-gray-700 mt-2">{text}</p>
+                <p className="text-sm text-gray-700 mt-2 leading-relaxed">{text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+            {AUDIENCE.map(item => (
+              <div key={item.title} className="bg-emerald-50/70 border border-emerald-100 rounded-xl p-4 min-h-[138px]">
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-white text-teal-700 flex items-center justify-center flex-shrink-0">
+                    <item.icon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-gray-950 leading-snug">{item.title}</h3>
+                    <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">{item.text}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -141,15 +195,28 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {SIGNALS.map(item => (
-              <div key={item.label} className="bg-white/86 border border-gray-100 rounded-xl p-4 min-h-[112px]">
+              <div key={item.label} className="bg-white/88 border border-gray-100 rounded-xl p-4 min-h-[116px]">
                 <item.icon className="w-5 h-5 text-teal-700 mb-3" />
                 <p className="font-semibold text-gray-900">{item.label}</p>
-                <p className="text-xs text-gray-500 mt-1">{item.detail}</p>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">{item.detail}</p>
               </div>
             ))}
           </div>
-          <div className="mt-4 bg-teal-700 text-white rounded-xl p-4">
-            <p className="text-sm text-teal-50">Example</p>
+          <div className="mt-4 grid grid-cols-1 gap-2">
+            {LOOP.map(([title, text]) => (
+              <div key={title} className="flex gap-3 bg-white/76 border border-gray-100 rounded-xl p-3">
+                <div className="w-8 h-8 rounded-lg bg-teal-700 text-white flex items-center justify-center flex-shrink-0">
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-gray-950">{title}</p>
+                  <p className="text-xs text-gray-600 mt-0.5 leading-relaxed">{text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 bg-teal-800 text-white rounded-xl p-4">
+            <p className="text-sm text-teal-50">Demo moment</p>
             <p className="font-semibold mt-1">Soft &quot;mmm&quot; + pointing + blue cup</p>
             <p className="text-sm text-teal-100 mt-2">Gemma 4 checks confirmed memory and says: &quot;I want water.&quot;</p>
           </div>
@@ -161,8 +228,8 @@ export default function Home() {
           }`}>
             {ollamaStatus ? <Wifi className="w-5 h-5 mt-0.5" /> : <WifiOff className="w-5 h-5 mt-0.5" />}
             <div className="flex-1">
-              <p>{ollamaStatus ? 'Local runtime connected' : 'Ollama is not reachable'}</p>
-              <p className="text-xs opacity-80 mt-1">
+              <p>{ollamaStatus ? 'Local Gemma runtime connected' : 'Ollama is not reachable'}</p>
+              <p className="text-xs opacity-80 mt-1 leading-relaxed">
                 {runtime?.gemma4_ready
                   ? `Gemma 4 ready: ${runtime.active_model}`
                   : `Active model: ${runtime?.active_model || 'none'} · pull Gemma 4 before judging`}
@@ -171,28 +238,40 @@ export default function Home() {
             {runtime?.gemma4_ready && <Cpu className="w-4 h-4" />}
           </div>
 
-          <div className="bg-teal-800 text-white rounded-2xl p-5 shadow-sm">
+          <div className="bg-teal-900 text-white rounded-2xl p-5 shadow-sm">
             <p className="text-sm text-teal-100">Judge-ready family demo</p>
-            <h2 className="text-xl font-bold mt-1">Synthetic profiles</h2>
-            <p className="text-sm text-teal-100 mt-2">Loads multiple named profiles, separate care-team contacts, progress data, and no real person information.</p>
+            <h2 className="text-xl font-bold mt-1">Two named profiles, separate histories</h2>
+            <p className="text-sm text-teal-100 mt-2 leading-relaxed">
+              Loads synthetic profiles, care-team contacts, progress data, device links, and realistic communication moments without real person information.
+            </p>
             <button
               onClick={seedDemo}
               disabled={seedingDemo}
-              className="mt-4 inline-flex items-center gap-2 bg-white text-teal-900 px-4 py-2 rounded-xl font-semibold hover:bg-teal-50 disabled:bg-white/60"
+              className="mt-4 inline-flex items-center gap-2 bg-white text-teal-950 px-4 py-2 rounded-xl font-semibold hover:bg-teal-50 disabled:bg-white/60"
             >
               <FlaskConical className="w-4 h-4" /> {seedingDemo ? 'Loading...' : 'Open Family Demo'}
             </button>
           </div>
+
+          <div className="bg-white/88 border border-gray-100 rounded-2xl p-5 shadow-sm">
+            <div className="flex items-center gap-2">
+              <ClipboardCheck className="w-5 h-5 text-teal-700" />
+              <h2 className="font-bold text-gray-950">Clear boundary</h2>
+            </div>
+            <p className="text-sm text-gray-600 mt-2 leading-relaxed">
+              SpeakUp supports communication and care-team documentation. It does not diagnose autism, replace therapy, or make emergency medical decisions.
+            </p>
+          </div>
         </aside>
       </section>
 
-      <section className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-5 mb-6">
+      <section className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-5 mb-6">
         <div className="quiet-panel border border-white/70 rounded-2xl p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <HomeIcon className="w-5 h-5 text-teal-700" />
             <h2 className="font-bold text-gray-950">Parent command center</h2>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 leading-relaxed">
             One caregiver can manage multiple communicators while each tablet opens only the profile assigned to that person.
           </p>
           <div className="mt-4 space-y-3">
@@ -203,7 +282,7 @@ export default function Home() {
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-gray-900">{item.label}</p>
-                  <p className="text-xs text-gray-500 mt-0.5">{item.text}</p>
+                  <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{item.text}</p>
                 </div>
               </div>
             ))}
@@ -233,9 +312,9 @@ export default function Home() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
               {profiles.map(profile => (
-                <article key={profile.id} className="bg-white/90 border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+                <article key={profile.id} className="bg-white/92 border border-gray-200 rounded-2xl overflow-hidden shadow-sm flex flex-col min-h-[440px]">
                   <div className="h-2" style={{ backgroundColor: profile.avatar_color }} />
-                  <div className="p-4">
+                  <div className="p-4 flex flex-col flex-1">
                     <div className="flex items-start justify-between gap-3 mb-4">
                       <div className="flex items-center gap-3 min-w-0">
                         <div className="w-12 h-12 rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0" style={{ backgroundColor: profile.avatar_color }}>
@@ -250,8 +329,27 @@ export default function Home() {
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
-                    {profile.notes && <p className="text-sm text-gray-500 mb-4 line-clamp-2">{profile.notes}</p>}
-                    <div className="grid grid-cols-2 gap-2">
+                    {profile.notes ? (
+                      <p className="text-sm text-gray-500 mb-4 line-clamp-3">{profile.notes}</p>
+                    ) : (
+                      <p className="text-sm text-gray-500 mb-4">Add notes about signals, sensory needs, routines, and preferred communication supports.</p>
+                    )}
+                    <div className="grid grid-cols-1 gap-2 mb-4">
+                      {[
+                        { icon: Activity, title: 'Profile memory', text: "Gemma uses this person's confirmed patterns." },
+                        { icon: LockKeyhole, title: 'Dedicated device', text: 'Open only this profile on a tablet.' },
+                        { icon: Stethoscope, title: 'Care team', text: 'Keep therapist, teacher, or caregiver context nearby.' },
+                      ].map(item => (
+                        <div key={item.title} className="flex gap-3 bg-gray-50 border border-gray-100 rounded-xl p-3">
+                          <item.icon className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs font-bold text-gray-900">{item.title}</p>
+                            <p className="text-xs text-gray-500 mt-0.5">{item.text}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 mt-auto">
                       <button onClick={() => navigate(`/communicate/${profile.id}`)} className="inline-flex items-center justify-center gap-1 bg-teal-600 text-white py-2 rounded-xl text-sm font-medium hover:bg-teal-700">
                         <MessageCircle className="w-4 h-4" /> Communicate
                       </button>
@@ -262,10 +360,10 @@ export default function Home() {
                         <BarChart2 className="w-4 h-4" /> Progress
                       </button>
                       <button onClick={() => navigate(`/therapist/${profile.id}`)} className="inline-flex items-center justify-center gap-1 bg-violet-50 text-violet-700 py-2 rounded-xl text-sm font-medium hover:bg-violet-100">
-                        <Stethoscope className="w-4 h-4" /> Care Team
+                        <Stethoscope className="w-4 h-4" /> Care
                       </button>
                       <button onClick={() => navigate(`/device/${profile.id}`)} className="inline-flex items-center justify-center gap-1 bg-amber-50 text-amber-700 py-2 rounded-xl text-sm font-medium hover:bg-amber-100">
-                        <LockKeyhole className="w-4 h-4" /> Child Device
+                        <LockKeyhole className="w-4 h-4" /> Device
                       </button>
                       <button onClick={() => navigate(`/profile/${profile.id}/edit`)} className="inline-flex items-center justify-center gap-1 bg-gray-100 text-gray-700 py-2 rounded-xl text-sm font-medium hover:bg-gray-200">
                         <Edit className="w-4 h-4" /> Edit
@@ -274,6 +372,42 @@ export default function Home() {
                   </div>
                 </article>
               ))}
+              <article className="bg-teal-950 text-white rounded-2xl overflow-hidden shadow-sm flex flex-col min-h-[440px]">
+                <div className="h-2 bg-amber-300" />
+                <div className="p-5 flex flex-col flex-1">
+                  <div className="w-12 h-12 rounded-2xl bg-white/12 flex items-center justify-center mb-4">
+                    <ClipboardCheck className="w-6 h-6 text-amber-200" />
+                  </div>
+                  <p className="text-sm text-teal-100">Family setup</p>
+                  <h3 className="text-2xl font-bold mt-1 leading-tight">Give each communicator their own path.</h3>
+                  <p className="text-sm text-teal-100 mt-3 leading-relaxed">
+                    SpeakUp works best when parents separate profiles, assign a dedicated tablet link, and review what Gemma learned after real moments.
+                  </p>
+                  <div className="mt-5 space-y-3">
+                    {[
+                      'Choose the active communicator before recording.',
+                      "Use Device mode on that person's iPad or tablet.",
+                      'Confirm or correct Gemma so the history improves.',
+                      'Export progress before therapy, school, or care meetings.',
+                    ].map((item, index) => (
+                      <div key={item} className="flex gap-3">
+                        <div className="w-7 h-7 rounded-lg bg-white/12 text-amber-200 flex items-center justify-center text-sm font-bold flex-shrink-0">
+                          {index + 1}
+                        </div>
+                        <p className="text-sm text-teal-50 leading-relaxed">{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-1 gap-2 mt-auto pt-5">
+                    <button onClick={() => navigate('/parent')} className="inline-flex items-center justify-center gap-2 bg-white text-teal-950 py-3 rounded-xl text-sm font-bold hover:bg-teal-50">
+                      Open Parent Center <ArrowRight className="w-4 h-4" />
+                    </button>
+                    <button onClick={() => navigate('/profile/new')} className="inline-flex items-center justify-center gap-2 bg-white/10 text-white border border-white/15 py-3 rounded-xl text-sm font-bold hover:bg-white/15">
+                      <Plus className="w-4 h-4" /> Add Another Profile
+                    </button>
+                  </div>
+                </div>
+              </article>
             </div>
           )}
         </div>
