@@ -13,7 +13,7 @@ Deadline: May 18, 2026 at 11:59 PM UTC (6:59 PM CDT in Chicago).
 ## Must-Have Submission Assets
 
 - Public repo with setup instructions.
-- Working local demo URL or runnable instructions.
+- Working local demo URL or runnable instructions. Use `./scripts/judge_run.sh` from the repo root.
 - Public YouTube video, 3 minutes or less.
 - Kaggle write-up with architecture, model choice, limitations, and impact story.
 - Clear mention that demo data is synthetic and no real profile data was used.
@@ -51,6 +51,16 @@ Include these in the Kaggle write-up:
 - Completed metrics: 3 epochs, 24 steps, final logged loss 0.1734.
 - Proof files: `finetune/FINE_TUNE_PROOF.md` and `finetune/proof/`.
 - Adapter zip: upload `/Users/hetulpatel/Downloads/speakup-gemma4-t4-lora.zip` as a Kaggle Dataset or model artifact, then link it from the write-up.
+
+## Live Demo Recommendation
+
+For a stable final submission, use the GitHub repo plus the one-command local run path as the primary live demo. SpeakUp is intentionally local-first and needs Ollama plus Gemma 4, so a static frontend host such as Vercel is not enough by itself.
+
+If Kaggle requires an online URL field, the safest options are:
+
+1. Use the GitHub repo URL and clearly state: "Run locally with `./scripts/judge_run.sh`."
+2. Use a GPU/large-RAM VM and run Ollama, FastAPI, and the Vite frontend together.
+3. Do not submit a Vercel-only frontend unless it points to a real backend with Ollama/Gemma 4.
 
 ## Final Submit Steps
 

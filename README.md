@@ -28,6 +28,16 @@ Prerequisites:
 - Node.js 18+
 - Ollama
 
+One-command judge demo:
+
+```bash
+git clone https://github.com/Hetul803/speakup
+cd speakup
+./scripts/judge_run.sh
+```
+
+Open `http://localhost:5173`.
+
 ```bash
 git clone https://github.com/Hetul803/speakup
 cd speakup
@@ -37,9 +47,13 @@ ollama pull gemma4:e2b-it-q4_K_M
 ./scripts/start.sh
 ```
 
-Open `http://localhost:5173`.
-
 The backend auto-detects available Gemma 4 models and prefers the fine-tuned local model name `speakup-gemma4` when installed. It does not intentionally fall back to non-Gemma models.
+
+For the family demo data, open the app and click **Open Family Demo** on the Profiles page, or call:
+
+```bash
+curl -X POST http://localhost:8000/api/demo/seed
+```
 
 ## Architecture
 
