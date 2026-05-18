@@ -1,0 +1,21 @@
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+backend/venv/
+backend/.venv/
+backend/.env
+backend/speakup.db
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Model artifacts
+*.gguf
+finetune/speakup-gemma4-lora/
+finetune/speakup-gemma4/
+
+# Local logs
+*.log
