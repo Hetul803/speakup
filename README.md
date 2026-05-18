@@ -38,6 +38,8 @@ cd speakup
 
 Open `http://localhost:5173`.
 
+Note for judges: the first Gemma 4 reply can take 30-90 seconds while Ollama loads the model into memory. After the model is warm, later replies are faster. The video shows the intended flow; the local app uses the same Gemma 4/Ollama path.
+
 ```bash
 git clone https://github.com/Hetul803/speakup
 cd speakup
