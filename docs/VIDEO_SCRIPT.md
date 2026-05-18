@@ -29,6 +29,10 @@ VOICEOVER:
 
 "Create a private communication profile in seconds."
 
+*[Show Parent Center with Emma Demo and Noah Demo.]*
+
+"One parent can manage multiple communicators, each with separate memory, therapist contacts, alerts, and a child-only tablet link."
+
 *[Show visual card grid — adult taps 'water' card]*
 
 "Emma points at her cup and makes a soft sound."

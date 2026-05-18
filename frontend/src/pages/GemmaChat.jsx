@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, Bot, Mic, Square, Send, UserRound, Sparkles, BarChart2 } from 'lucide-react'
+import { ArrowLeft, Bot, Mic, Square, Send, UserRound, Sparkles, BarChart2, ShieldCheck } from 'lucide-react'
 import { childrenAPI, chatAPI } from '../api/client'
 
 const QUICK_PARENT_PROMPTS = [
@@ -21,6 +21,7 @@ export default function GemmaChat() {
   const { childId } = useParams()
   const navigate = useNavigate()
   const [profile, setProfile] = useState(null)
+  const [profiles, setProfiles] = useState([])
   const [messages, setMessages] = useState([])
   const [mode, setMode] = useState('caregiver')
   const [input, setInput] = useState('')
@@ -30,7 +31,9 @@ export default function GemmaChat() {
   const recorderRef = useRef(null)
 
   useEffect(() => {
+    setMessages([])
     childrenAPI.get(childId).then(setProfile).catch(() => navigate('/'))
+    childrenAPI.list().then(setProfiles).catch(() => {})
   }, [childId])
 
   useEffect(() => {
@@ -107,7 +110,7 @@ export default function GemmaChat() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-6">
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-5">
         <div className="flex items-center gap-3">
           <button onClick={() => navigate('/')} className="text-gray-400 hover:text-gray-700 p-1">
             <ArrowLeft className="w-5 h-5" />
@@ -120,9 +123,24 @@ export default function GemmaChat() {
             <p className="text-sm text-gray-500">{profile.name}'s memory-aware chat for signals and progress</p>
           </div>
         </div>
-        <button onClick={() => navigate(`/dashboard/${childId}`)} className="hidden sm:inline-flex items-center gap-2 text-sm text-teal-700 bg-teal-50 px-3 py-2 rounded-xl hover:bg-teal-100">
-          <BarChart2 className="w-4 h-4" /> Progress
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          {profiles.length > 1 && (
+            <select
+              value={childId}
+              onChange={e => navigate(`/chat/${e.target.value}`)}
+              className="bg-white border border-gray-200 rounded-xl px-3 py-2 text-sm font-medium text-gray-800 outline-none focus:ring-2 focus:ring-teal-500"
+              aria-label="Choose communicator profile"
+            >
+              {profiles.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
+            </select>
+          )}
+          <button onClick={() => navigate('/parent')} className="inline-flex items-center gap-2 text-sm text-gray-700 bg-white border border-gray-200 px-3 py-2 rounded-xl hover:bg-gray-50">
+            <ShieldCheck className="w-4 h-4" /> Parent Center
+          </button>
+          <button onClick={() => navigate(`/dashboard/${childId}`)} className="inline-flex items-center gap-2 text-sm text-teal-700 bg-teal-50 px-3 py-2 rounded-xl hover:bg-teal-100">
+            <BarChart2 className="w-4 h-4" /> Progress
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-5">

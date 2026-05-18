@@ -1,0 +1,9 @@
+{
+  "name": "SpeakUp",
+  "short_name": "SpeakUp",
+  "description": "A local Gemma 4 communication companion for minimally speaking and non-speaking communicators.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#eef7f1",
+  "theme_color": "#0f766e"
+}

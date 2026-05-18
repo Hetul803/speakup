@@ -5,15 +5,19 @@ import Dashboard from './pages/Dashboard'
 import ProfileSetup from './pages/ProfileSetup'
 import TherapistView from './pages/TherapistView'
 import GemmaChat from './pages/GemmaChat'
+import ParentCenter from './pages/ParentCenter'
+import ChildDevice from './pages/ChildDevice'
 import Navbar from './components/Navbar'
 
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[#f6f8f7]">
+      <div className="min-h-screen calm-app-bg">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/parent" element={<ParentCenter />} />
+          <Route path="/device/:childId" element={<ChildDevice />} />
           <Route path="/communicate/:childId" element={<CommunicationScreen />} />
           <Route path="/chat/:childId" element={<GemmaChat />} />
           <Route path="/dashboard/:childId" element={<Dashboard />} />

@@ -8,6 +8,7 @@ import schemas
 router = APIRouter()
 
 DEMO_NAME = "Emma Demo"
+SECOND_DEMO_NAME = "Noah Demo"
 
 SCENARIOS = [
     {
@@ -87,6 +88,41 @@ SCENARIOS = [
     },
 ]
 
+SECOND_PROFILE_SCENARIOS = [
+    {
+        "gesture_label": "Hands over eyes",
+        "sound_label": "Low humming",
+        "object_detected": "bright window",
+        "card_selected": "Break",
+        "predicted_intent": "The light is too bright",
+        "confidence": 0.88,
+        "spoken_phrase": "The light is too bright. I need a break.",
+        "explanation": "Eye covering, low humming, and a bright window indicate visual overwhelm.",
+        "alternatives": ["I need sunglasses", "Please close the curtains"],
+        "urgency": "normal",
+        "emotion_detected": "overwhelmed",
+        "input_channels": ["card", "gesture", "sound", "object"],
+        "confirmed_intent": "The light is too bright",
+        "was_correct": True,
+    },
+    {
+        "gesture_label": "Pressing palms together",
+        "sound_label": "Repeated ah ah",
+        "object_detected": "weighted blanket",
+        "card_selected": "Calm",
+        "predicted_intent": "I need pressure to calm down",
+        "confidence": 0.9,
+        "spoken_phrase": "I need my weighted blanket to calm down.",
+        "explanation": "The pressure gesture and blanket context match a calming support request.",
+        "alternatives": ["I need quiet", "I want my blanket"],
+        "urgency": "normal",
+        "emotion_detected": "distressed",
+        "input_channels": ["card", "gesture", "sound", "object"],
+        "confirmed_intent": "I need pressure to calm down",
+        "was_correct": True,
+    },
+]
+
 DEMO_NOTE = (
     "Emma often uses a soft mmm sound with cups for drink requests and covers her ears "
     "when sound is painful."
@@ -97,6 +133,13 @@ THERAPIST_CONTACT = (
     '"organization":"BrightPath Communication Clinic","email":"maya.rivera@example.com",'
     '"phone":"(555) 014-2218","goal":"Increase reliable independent requests using sounds, '
     'gestures, and visual cards."}'
+)
+
+SECOND_THERAPIST_CONTACT = (
+    '{"name":"Jordan Lee","role":"Occupational therapist",'
+    '"organization":"CalmBridge Pediatric Therapy","email":"jordan.lee@example.com",'
+    '"phone":"(555) 018-4430","goal":"Support sensory regulation and reliable break requests '
+    'using visual cards, gestures, and environment context."}'
 )
 
 def ensure_demo_note(db: Session, child_id: int, category: str, note: str):
@@ -145,9 +188,47 @@ def seed_demo(db: Session = Depends(get_db)):
     ensure_demo_note(db, child.id, "demo", DEMO_NOTE)
     ensure_demo_note(db, child.id, "therapist_contact", THERAPIST_CONTACT)
 
+    second = db.query(Child).filter(Child.name == SECOND_DEMO_NAME).first()
+    if second:
+        crud.delete_child(db, second.id)
+
+    second = crud.create_child(db, schemas.ChildCreate(
+        name=SECOND_DEMO_NAME,
+        age=9,
+        avatar_color="#6366f1",
+        notes="Synthetic second profile showing how one parent can manage different communication plans on different devices."
+    ))
+    for scenario in SECOND_PROFILE_SCENARIOS:
+        log = crud.create_interaction(
+            db=db,
+            child_id=second.id,
+            gesture_label=scenario.get("gesture_label"),
+            sound_label=scenario.get("sound_label"),
+            object_detected=scenario.get("object_detected"),
+            card_selected=scenario.get("card_selected"),
+            predicted_intent=scenario["predicted_intent"],
+            confidence=scenario["confidence"],
+            spoken_phrase=scenario["spoken_phrase"],
+            explanation=scenario["explanation"],
+            alternatives=scenario["alternatives"],
+            urgency=scenario["urgency"],
+            emotion_detected=scenario["emotion_detected"],
+            input_channels=scenario["input_channels"],
+            model_name="synthetic-demo-seed",
+        )
+        crud.confirm_interaction(db, log.id, scenario["confirmed_intent"], scenario["was_correct"])
+    ensure_demo_note(
+        db,
+        second.id,
+        "demo",
+        "Noah uses break cards and pressure gestures when light or noise feels overwhelming."
+    )
+    ensure_demo_note(db, second.id, "therapist_contact", SECOND_THERAPIST_CONTACT)
+
     return {
         "child_id": child.id,
         "child_name": child.name,
+        "family_profile_ids": [child.id, second.id],
         "seeded": True,
         "synthetic": True,
     }
