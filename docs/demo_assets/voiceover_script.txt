@@ -1,0 +1,17 @@
+SpeakUp is a local Gemma 4 communication companion for people who cannot always rely on speech.
+
+It supports autistic, nonspeaking, minimally speaking, AAC, aphasia, and apraxia communication needs without sending private communication data to the cloud.
+
+A caregiver starts on the About page, then opens Profiles. Each communicator has a separate memory, care plan, therapist details, and dedicated device mode.
+
+In device mode, the communicator sees simple one-tap cards first. The Gemma chat stays visible, so the person can vocalize or select common signals without navigating through a complex app.
+
+When Emma taps water, SpeakUp sends the signal plus Emma's profile memory to Gemma 4 running locally through Ollama. Gemma returns structured JSON, a confidence score, and a first-person phrase that can be spoken aloud.
+
+The chat panel also uses memory. If Emma makes a soft sound, Gemma can connect it to earlier confirmed patterns and help the caregiver understand what may be happening.
+
+Advanced communication tools are still available for caregivers: camera context, audio recording, gesture input, and signal chips. The communicator can view the camera or keep it hidden for sensory comfort.
+
+The progress dashboard turns confirmed interactions into weekly patterns and summaries. The care-team page keeps therapist contact details and export-ready notes in one place.
+
+SpeakUp is not a medical device or a replacement for clinicians. It is a privacy-first assistive communication support tool powered by Gemma 4, built to help more families be heard.

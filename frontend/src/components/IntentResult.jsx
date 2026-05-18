@@ -65,8 +65,6 @@ export default function IntentResult({ result, onAskConfirmation, autoSpeak = tr
           ))}
         </div>
       )}
-
-      {/* Confidence bar */}
       <div className="mt-4">
         <div className="flex items-center justify-between text-xs text-white/70 mb-1">
           <span>Confidence</span>
@@ -76,8 +74,6 @@ export default function IntentResult({ result, onAskConfirmation, autoSpeak = tr
           <div className="bg-white rounded-full h-2 transition-all" style={{ width: `${result.confidence * 100}%` }} />
         </div>
       </div>
-
-      {/* Explanation */}
       <p className="mt-3 text-white/80 text-xs italic">"{result.explanation}"</p>
 
       {result.image_analysis?.scene && (
@@ -85,8 +81,6 @@ export default function IntentResult({ result, onAskConfirmation, autoSpeak = tr
           Camera scene: {result.image_analysis.scene}
         </p>
       )}
-
-      {/* Alternatives */}
       {result.alternatives?.length > 0 && (
         <div className="mt-4">
           <p className="text-white/60 text-xs mb-2">Could also mean:</p>
@@ -97,8 +91,6 @@ export default function IntentResult({ result, onAskConfirmation, autoSpeak = tr
           </div>
         </div>
       )}
-
-      {/* Confirmation prompt */}
       <div className="mt-4 flex gap-2">
         <button onClick={() => onAskConfirmation('confirm', true)}
           className="flex-1 flex items-center justify-center gap-1 bg-white/20 hover:bg-white/30 py-2 rounded-xl text-sm font-medium transition-colors">

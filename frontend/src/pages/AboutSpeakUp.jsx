@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import {
   Accessibility,
   ArrowLeft,
@@ -47,12 +47,16 @@ const STEPS = [
 
 export default function AboutSpeakUp() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const showBack = location.pathname !== '/'
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 relative">
-      <button onClick={() => navigate('/profiles')} className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm mb-4">
-        <ArrowLeft className="w-4 h-4" /> Back to profiles
-      </button>
+      {showBack && (
+        <button onClick={() => navigate('/profiles')} className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm mb-4">
+          <ArrowLeft className="w-4 h-4" /> Back to profiles
+        </button>
+      )}
 
       <section className="quiet-panel border border-white/70 rounded-2xl p-6 sm:p-8 shadow-sm mb-6">
         <div className="max-w-4xl">

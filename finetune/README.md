@@ -1,8 +1,8 @@
 # SpeakUp — Fine-tuning Guide
 
 ## Overview
-Fine-tune Gemma 4 on AAC (Augmentative & Alternative Communication) data to improve intent prediction accuracy.
-This qualifies for the **Unsloth Special Track ($10,000 prize)**.
+Fine-tune Gemma 4 on AAC (Augmentative & Alternative Communication) data to improve intent prediction reliability.
+The included Colab run produced a T4-safe LoRA adapter for the Unsloth track.
 
 ## Requirements
 - T4 16GB works with the default E2B QLoRA settings
@@ -32,6 +32,16 @@ Training takes about 30–70 minutes on a Colab T4 for the current 61-example AA
 
 ## Colab T4 Notebook
 Use `SpeakUp_Gemma4_T4_Finetune.ipynb` when you only have free/low-cost Colab T4 access. It trains and downloads the small LoRA adapter. Do not upload a 5GB GGUF to Kaggle unless you actually have storage and time; for submission, the public repo plus notebook, logs, and LoRA adapter proof is usually the safer path.
+
+## Completed Run Proof
+The final submission run is documented in:
+
+- `GEMMA4HACKATHON.ipynb`
+- `FINE_TUNE_PROOF.md`
+- `proof/adapter_config.json`
+- `proof/trainer_state.json`
+
+Summary: `unsloth/gemma-4-E2B-it-unsloth-bnb-4bit`, QLoRA rank 8, alpha 16, 3 epochs, 24 steps, final logged loss 0.1734.
 
 ## Convert & Load to Ollama
 ```bash

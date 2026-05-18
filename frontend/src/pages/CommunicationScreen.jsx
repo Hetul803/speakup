@@ -140,7 +140,6 @@ export default function CommunicationScreen() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-6">
-      {/* Header */}
       <div className="flex items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-3">
           <button onClick={goBack} className="text-gray-400 hover:text-gray-700 p-1">
@@ -174,8 +173,6 @@ export default function CommunicationScreen() {
           Use visual cards, gestures, sounds, and optional camera context. Camera preview and audio waveform can be hidden for sensory comfort.
         </p>
       </section>
-
-      {/* Active signal chips */}
       {inputCount > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">
           {selectedCard && (
@@ -213,8 +210,6 @@ export default function CommunicationScreen() {
           </button>
         </div>
       )}
-
-      {/* Input section toggle */}
       {result && (
         <button onClick={() => setShowInputs(v => !v)}
           className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-800 mb-3">
@@ -222,8 +217,6 @@ export default function CommunicationScreen() {
           {showInputs ? 'Hide input panel' : 'Add more signals'}
         </button>
       )}
-
-      {/* Input panels */}
       {showInputs && (
         <div className="space-y-4 mb-5">
           <div className="flex gap-2 overflow-x-auto pb-1">
@@ -254,8 +247,6 @@ export default function CommunicationScreen() {
           )}
         </div>
       )}
-
-      {/* Predict button */}
       <button
         onClick={() => handlePredict(false)}
         disabled={!hasInput || loading}
@@ -274,8 +265,6 @@ export default function CommunicationScreen() {
           </>
         )}
       </button>
-
-      {/* Error with retry */}
       {error && (
         <div className="mt-4 bg-red-50 border border-red-200 text-red-700 rounded-xl p-4">
           <div className="flex items-start gap-2">
@@ -298,8 +287,6 @@ export default function CommunicationScreen() {
           )}
         </div>
       )}
-
-      {/* Result */}
       {result && (
         <div className="mt-5" ref={resultRef}>
           <IntentResult
@@ -309,15 +296,11 @@ export default function CommunicationScreen() {
           />
         </div>
       )}
-
-      {/* Learning message */}
       {learningMessage && (
         <div className="mt-4 bg-green-50 border border-green-200 text-green-700 rounded-xl p-3 text-sm font-medium slide-up flex items-center gap-2">
           🧠 {learningMessage}
         </div>
       )}
-
-      {/* Reset after result */}
       {result && (
         <button onClick={handleReset}
           className="w-full mt-4 flex items-center justify-center gap-2 border-2 border-dashed border-gray-200 py-3 rounded-2xl text-gray-500 hover:border-indigo-300 hover:text-indigo-600 transition-colors font-medium">

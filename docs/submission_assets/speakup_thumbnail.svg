@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">SpeakUp submission thumbnail</title>
+  <desc id="desc">SpeakUp, a local Gemma 4 communication companion for AAC users and care teams.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1280" y1="0" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D9F4EC"/>
+      <stop offset="0.46" stop-color="#F8F6E8"/>
+      <stop offset="1" stop-color="#DDECFB"/>
+    </linearGradient>
+    <filter id="soft" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="22" stdDeviation="20" flood-color="#123D3B" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <rect width="1280" height="720" fill="url(#sky)"/>
+  <path d="M0 498c156-38 280-26 421 42 168 80 350 78 511 0 133-64 229-67 348-24v204H0z" fill="#BFE6DE" opacity="0.72"/>
+  <path d="M0 562c176-30 310-21 449 31 184 69 347 56 490-25 118-67 223-75 341-26v178H0z" fill="#D8EAF8" opacity="0.88"/>
+  <g transform="translate(76 79)">
+    <text x="0" y="80" fill="#103B3A" font-family="Inter, Arial, sans-serif" font-size="78" font-weight="800">SpeakUp</text>
+    <text x="0" y="133" fill="#0F766E" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700">Local Gemma 4 communication support</text>
+    <text x="0" y="197" fill="#24514F" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="500">For autistic, nonspeaking, minimally speaking,</text>
+    <text x="0" y="235" fill="#24514F" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="500">AAC, aphasia, and care-team needs.</text>
+    <g transform="translate(0 297)">
+      <rect x="0" y="0" width="214" height="70" rx="20" fill="#0F766E"/>
+      <text x="30" y="46" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="800">Private</text>
+      <rect x="235" y="0" width="214" height="70" rx="20" fill="#2563EB"/>
+      <text x="271" y="46" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="800">Offline</text>
+      <rect x="470" y="0" width="246" height="70" rx="20" fill="#D97706"/>
+      <text x="503" y="46" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="800">Personalized</text>
+    </g>
+  </g>
+  <g transform="translate(808 95)" filter="url(#soft)">
+    <rect x="0" y="0" width="402" height="508" rx="44" fill="#FFFFFF"/>
+    <rect x="30" y="35" width="342" height="64" rx="24" fill="#EAF7F3"/>
+    <text x="57" y="77" fill="#0F3B3A" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="800">Emma's device mode</text>
+    <g transform="translate(42 135)">
+      <rect width="138" height="126" rx="28" fill="#0F766E"/>
+      <text x="35" y="75" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="800">Water</text>
+      <rect x="166" width="138" height="126" rx="28" fill="#3B82F6"/>
+      <text x="203" y="75" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="800">Help</text>
+      <rect y="153" width="138" height="126" rx="28" fill="#F59E0B"/>
+      <text x="28" y="228" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="800">Break</text>
+      <rect x="166" y="153" width="138" height="126" rx="28" fill="#7C3AED"/>
+      <text x="192" y="228" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="800">Chat</text>
+    </g>
+    <rect x="42" y="430" width="318" height="44" rx="22" fill="#103B3A"/>
+    <text x="66" y="460" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700">Gemma 4 learns patterns</text>
+  </g>
+</svg>

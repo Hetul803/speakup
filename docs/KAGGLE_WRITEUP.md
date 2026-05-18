@@ -74,7 +74,7 @@ SpeakUp also uses Gemma 4 multimodal input in the camera path. A captured frame 
 **Backend**: FastAPI + SQLAlchemy + SQLite
 **Frontend**: React + Tailwind CSS + Recharts
 **AI Runtime**: Gemma 4 via Ollama (local inference)
-**Fine-tuning**: Reproducible Unsloth LoRA pipeline on AAC dataset
+**Fine-tuning**: Completed Unsloth T4 LoRA run on the AAC dataset
 **TTS**: Web Speech API (on-device)
 
 The system is stateless at the API level — all state lives in SQLite per communicator profile.
@@ -97,9 +97,9 @@ The system is stateless at the API level — all state lives in SQLite per commu
 
 ## Fine-tuning with Unsloth
 
-The repository includes a reproducible Unsloth LoRA pipeline targeting `unsloth/gemma-4-E4B-it-unsloth-bnb-4bit` by default, with an optional `unsloth/gemma-4-31B-it-unsloth-bnb-4bit` override for A100/H100 runs. The dataset contains 61 AAC communication scenarios covering gesture-intent pairs, sound-intent mappings, multi-signal combinations, object/camera context, urgency detection, and emotion recognition.
+The repository includes a completed Unsloth T4 LoRA run and a reproducible notebook. The run used `unsloth/gemma-4-E2B-it-unsloth-bnb-4bit`, QLoRA rank 8, alpha 16, 3 epochs, 24 steps, and reached a final logged loss of 0.1734. The dataset contains 61 AAC communication scenarios covering gesture-intent pairs, sound-intent mappings, multi-signal combinations, object/camera context, urgency detection, and emotion recognition.
 
-For the final Kaggle submission, report fine-tuning metrics only after the Colab/A100 run completes. If the LoRA is completed, load the exported GGUF into Ollama as `speakup-gemma4` and set `OLLAMA_MODEL=speakup-gemma4`.
+The public repo includes the notebook and lightweight proof files. The downloaded adapter zip should be linked as a Kaggle Dataset or model artifact rather than committed to GitHub.
 
 ---
 
@@ -129,4 +129,4 @@ SpeakUp is explicitly positioned as an assistive communication tool, not a medic
 - **Main Track**: Demonstrated real-world impact, technical depth, compelling story
 - **Health & Sciences**: Direct benefit to disabled communicators and families
 - **Ollama Special Track**: Core inference via Ollama local runtime
-- **Unsloth Special Track**: Reproducible Gemma 4 LoRA pipeline included; submit this track only after the run is completed and proof is attached
+- **Unsloth Special Track**: Completed T4 LoRA run, notebook, proof files, and adapter artifact

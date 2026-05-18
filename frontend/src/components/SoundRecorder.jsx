@@ -45,8 +45,6 @@ export default function SoundRecorder({ onSoundSelect, selectedSound }) {
       analyser.fftSize = 64
       source.connect(analyser)
       analyserRef.current = analyser
-
-      // Animate waveform
       function drawWave() {
         const buf = new Uint8Array(analyser.frequencyBinCount)
         analyser.getByteFrequencyData(buf)
@@ -60,8 +58,6 @@ export default function SoundRecorder({ onSoundSelect, selectedSound }) {
       mr.start()
       mediaRecorderRef.current = { recorder: mr, stream, audioCtx }
       setRecording(true)
-
-      // Auto-stop after 5 seconds
       setTimeout(() => { if (mediaRecorderRef.current) stopRecording() }, 5000)
     } catch (e) {
       alert('Microphone not available: ' + e.message)
@@ -78,7 +74,6 @@ export default function SoundRecorder({ onSoundSelect, selectedSound }) {
     mediaRecorderRef.current = null
     setRecording(false)
     setWaveform([])
-    // After recording, show sound label picker
     setShowCustom(true)
   }
 
@@ -87,8 +82,6 @@ export default function SoundRecorder({ onSoundSelect, selectedSound }) {
       <h3 className="font-semibold text-gray-800 mb-3 text-sm flex items-center gap-1">
         <span>🔊</span> Vocalization / Sound
       </h3>
-
-      {/* Preset sounds */}
       <div className="grid grid-cols-2 gap-2 mb-3">
         {PRESET_SOUNDS.map(s => (
           <button key={s.id}
@@ -99,8 +92,6 @@ export default function SoundRecorder({ onSoundSelect, selectedSound }) {
           </button>
         ))}
       </div>
-
-      {/* Live recorder */}
       <div className="border-t border-gray-100 pt-3">
         <div className="flex items-center justify-between gap-2 mb-2">
           <p className="text-xs text-gray-500">Or record the sound directly:</p>

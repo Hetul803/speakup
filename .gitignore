@@ -14,8 +14,10 @@ frontend/dist/
 
 # Model artifacts
 *.gguf
+*.zip
 finetune/speakup-gemma4-lora/
 finetune/speakup-gemma4/
+finetune/artifacts/
 
 # Local logs
 *.log

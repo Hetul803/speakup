@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 echo "=============================="
-echo "  SpeakUp v2 — Setup"
+echo "  SpeakUp Setup"
 echo "=============================="
 
 # Check Ollama
 if command -v ollama &>/dev/null; then
   echo "Ollama found"
   echo "Pulling Gemma 4 model..."
-  ollama pull hf.co/unsloth/gemma-4-E4B-it-GGUF || echo "Pull failed — run: ollama pull hf.co/unsloth/gemma-4-E4B-it-GGUF"
+  ollama pull gemma4:e2b-it-q4_K_M || echo "Pull failed — run: ollama pull gemma4:e2b-it-q4_K_M"
 else
   echo "INSTALL OLLAMA FIRST: https://ollama.com"
   echo "Then re-run this script"

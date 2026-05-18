@@ -25,7 +25,7 @@ export default function CameraCapture({ onObjectDetected, onImageCaptured, onAna
     onImageCaptured?.(rawB64)
     stopCamera()
 
-    if (!childId) return // no child selected
+    if (!childId) return
 
     setAnalyzing(true)
     setAnalysisResult(null)
@@ -50,8 +50,6 @@ export default function CameraCapture({ onObjectDetected, onImageCaptured, onAna
         <Camera className="w-4 h-4" /> Object in View
         <span className="ml-auto text-xs text-indigo-500 font-normal">Gemma 4 multimodal</span>
       </h3>
-
-      {/* Quick select */}
       <div className="mb-3">
         <p className="text-xs text-gray-500 mb-2">Quick select — or use camera below:</p>
         <div className="flex flex-wrap gap-1">
@@ -64,8 +62,6 @@ export default function CameraCapture({ onObjectDetected, onImageCaptured, onAna
           ))}
         </div>
       </div>
-
-      {/* Camera */}
       <div className="border-t border-gray-100 pt-3">
         <div className="flex items-center justify-between gap-2 mb-2">
           <div className="flex items-center gap-1">

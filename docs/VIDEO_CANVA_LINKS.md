@@ -25,6 +25,12 @@ Judges should see real working app footage, not only AI-generated visuals.
 
 ## Captured Real App Walkthrough
 - Silent WebM walkthrough: `docs/demo_assets/speakup_app_walkthrough_silent.webm`
+- Captioned WebM walkthrough: `docs/demo_assets/speakup_demo_captioned.webm`
+- Captioned MP4 with voiceover: `docs/demo_assets/speakup_demo_captioned_voiceover.mp4`
+- Voiceover audio: `docs/demo_assets/speakup_voiceover.aiff`
+- Voiceover script: `docs/demo_assets/voiceover_script.txt`
+- Video preview still: `docs/demo_assets/video_preview.png`
 - Screenshot sequence: `docs/demo_assets/screenshots/`
+- Submission thumbnail and icon: `docs/submission_assets/`
 
-Use the WebM as the base visual track in Canva, then add voiceover, captions, and final trims.
+The MP4 is 1 minute 34 seconds, includes on-screen captions plus generated voiceover audio, and is ready to upload to YouTube or import into Canva for final trims.

@@ -46,7 +46,6 @@ export default function VisualCardGrid({ onCardSelect, selectedCard }) {
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm">
-      {/* Category Tabs */}
       <div className="flex gap-1 p-3 border-b border-gray-100 overflow-x-auto">
         {Object.keys(CARD_CATEGORIES).map(cat => (
           <button key={cat}
@@ -56,8 +55,6 @@ export default function VisualCardGrid({ onCardSelect, selectedCard }) {
           </button>
         ))}
       </div>
-
-      {/* Cards Grid */}
       <div className="p-3 grid grid-cols-4 gap-2">
         {CARD_CATEGORIES[activeCategory].map(card => (
           <button key={card.id}

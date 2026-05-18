@@ -41,8 +41,6 @@ export default function Dashboard() {
           </button>
         </div>
       </div>
-
-      {/* Milestones */}
       {data.milestones?.length > 0 && (
         <div className="mb-6 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-5 text-white">
           <div className="flex items-center gap-2 mb-3"><Trophy className="w-5 h-5" /><span className="font-bold">Milestones</span></div>
@@ -53,8 +51,6 @@ export default function Dashboard() {
           </div>
         </div>
       )}
-
-      {/* Stats Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
         {[
           { icon: MessageCircle, label: 'Total Communications', val: data.total_communications, color: 'text-indigo-600', bg: 'bg-indigo-50' },
@@ -75,7 +71,6 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        {/* Daily Trend Chart */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
           <h3 className="font-semibold text-gray-800 mb-4">Daily Communications (Last 7 Days)</h3>
           <ResponsiveContainer width="100%" height={180}>
@@ -87,8 +82,6 @@ export default function Dashboard() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-
-        {/* Top Intents Pie */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
           <h3 className="font-semibold text-gray-800 mb-4">Most Common Needs</h3>
           {data.top_intents?.length > 0 ? (
@@ -131,8 +124,6 @@ export default function Dashboard() {
           </div>
         </div>
       )}
-
-      {/* Recent Interactions */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
         <h3 className="font-semibold text-gray-800 mb-4">Recent Communications</h3>
         {data.recent_interactions?.length > 0 ? (
@@ -162,8 +153,6 @@ export default function Dashboard() {
           </div>
         )}
       </div>
-
-      {/* CTA */}
       <div className="mt-6 text-center">
         <button onClick={() => navigate(`/communicate/${childId}`)}
           className="bg-indigo-600 text-white px-8 py-3 rounded-2xl font-semibold hover:bg-indigo-700 transition-colors">

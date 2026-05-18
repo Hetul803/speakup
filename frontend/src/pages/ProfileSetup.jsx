@@ -49,15 +49,11 @@ export default function ProfileSetup() {
         <p className="text-sm text-gray-500 mb-6">
           SpeakUp supports minimally speaking and non-speaking communicators of any age. Add only the context caregivers want Gemma to remember.
         </p>
-
-        {/* Avatar Preview */}
         <div className="flex justify-center mb-6">
           <div className="w-20 h-20 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg" style={{ backgroundColor: form.avatar_color }}>
             {form.name ? form.name[0].toUpperCase() : '?'}
           </div>
         </div>
-
-        {/* Color Picker */}
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">Profile Color</label>
           <div className="flex gap-2 flex-wrap">

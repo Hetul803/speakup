@@ -8,7 +8,7 @@ Deadline: May 18, 2026 at 11:59 PM UTC (6:59 PM CDT in Chicago).
 - Digital Equity & Inclusivity: free AAC-style communication support for families who cannot access expensive devices.
 - Health & Sciences: assistive communication support for disabled communicators, clearly framed as non-diagnostic.
 - Ollama Special Track: Gemma 4 runs locally through Ollama.
-- Unsloth Special Track: submit only if the LoRA run is completed and the resulting `speakup-gemma4` model is loaded or published.
+- Unsloth Special Track: T4 LoRA run is completed; submit the notebook, proof files, and adapter artifact link.
 
 ## Must-Have Submission Assets
 
@@ -18,6 +18,7 @@ Deadline: May 18, 2026 at 11:59 PM UTC (6:59 PM CDT in Chicago).
 - Kaggle write-up with architecture, model choice, limitations, and impact story.
 - Clear mention that demo data is synthetic and no real profile data was used.
 - Canva video assets in `docs/VIDEO_CANVA_LINKS.md`.
+- Submission thumbnail and app icon in `docs/submission_assets/`.
 
 ## Demo Flow
 
@@ -42,14 +43,20 @@ Deadline: May 18, 2026 at 11:59 PM UTC (6:59 PM CDT in Chicago).
 
 ## Fine-Tuning Proof
 
-Include these only after running the notebook/script:
+Include these in the Kaggle write-up:
 
-- Base model name.
-- Unsloth version or notebook link.
+- Base model: `unsloth/gemma-4-E2B-it-unsloth-bnb-4bit`.
+- Notebook: `finetune/GEMMA4HACKATHON.ipynb`.
 - Dataset size and categories.
-- Training loss screenshot.
-- Exported GGUF model name.
-- Before/after JSON reliability and held-out scenario accuracy.
-- If you only have Colab T4, use `finetune/SpeakUp_Gemma4_T4_Finetune.ipynb` and submit the LoRA adapter zip/logs as proof instead of trying to upload a large GGUF.
+- Completed metrics: 3 epochs, 24 steps, final logged loss 0.1734.
+- Proof files: `finetune/FINE_TUNE_PROOF.md` and `finetune/proof/`.
+- Adapter zip: upload `/Users/hetulpatel/Downloads/speakup-gemma4-t4-lora.zip` as a Kaggle Dataset or model artifact, then link it from the write-up.
 
-If fine-tuning is not completed before submission, say the repo includes a reproducible Unsloth fine-tuning pipeline and submit for the Ollama/Main/Impact tracks instead of overstating the Unsloth result.
+## Final Submit Steps
+
+1. Push the final GitHub repo.
+2. Upload the captioned demo video to YouTube as public or unlisted.
+3. Upload the LoRA zip to Kaggle as a public Dataset or model artifact if the form allows artifact links.
+4. Create the Kaggle write-up with the repo link, video link, architecture diagram, local setup, and limitations.
+5. Add the media gallery images from `docs/demo_assets/screenshots/` and `docs/submission_assets/`.
+6. Submit before May 18, 2026 at 11:59 PM UTC.

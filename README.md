@@ -1,176 +1,131 @@
-# SpeakUp 🗣️
+# SpeakUp
 
-**A privacy-first, local AI communication companion for people who cannot always rely on speech.**
+Privacy-first local AI communication support for autistic, nonspeaking, minimally speaking, AAC, aphasia, apraxia, and care-team communication needs.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Gemma 4](https://img.shields.io/badge/AI-Gemma%204-blue)](https://ai.google.dev/gemma)
-[![Ollama](https://img.shields.io/badge/Runtime-Ollama-green)](https://ollama.com)
+SpeakUp helps a communicator share intent through visual cards, gesture signals, sounds, camera context, and chat. Gemma 4 runs through Ollama, combines the current signal with profile memory, returns a structured explanation, and speaks a first-person phrase aloud. Caregivers can confirm or correct results so each profile learns over time.
 
-> *Every communicator has a voice. SpeakUp helps make it heard.*
+Built for the Kaggle Gemma 4 Good Hackathon.
 
-## 🏆 Kaggle Gemma 4 Good Hackathon Submission
+## Why It Matters
 
-**Tracks targeted:**
-- Main Track ($50,000)
-- Health & Sciences Impact Track ($10,000)
-- Ollama Special Track ($10,000)
-- Unsloth Special Track ($10,000) if the included LoRA run is completed before submission
+Many families cannot access dedicated AAC devices that can cost thousands of dollars. Even when a device is available, it may not learn the communicator's personal signals: a soft vocalization, a repeated gesture, a routine, or a specific object association.
 
-## The Problem
+SpeakUp is designed as a local, free, privacy-first proof of concept:
 
-- **3.5 million** non-verbal or minimally verbal individuals in the US
-- Autism is one important use case, but the need is broader: AAC users, nonspeaking children and adults, people with apraxia, aphasia, cerebral palsy, developmental disabilities, injury, medical fatigue, or temporary speech loss may all need support.
-- Traditional AAC (Augmentative & Alternative Communication) devices cost **$6,000–$12,000**
-- Most systems are **static** — they provide buttons, but cannot learn each person's personal signals
-- Sensitive communication data sent to **cloud servers** — a privacy violation
+- Local Gemma 4 inference through Ollama
+- Separate profiles for each communicator
+- Dedicated device mode for one selected profile
+- Parent command center for alerts, reports, exports, and care-team details
+- Memory-aware Gemma chat for communicators and caregivers
+- Optional camera and audio inputs with caregiver control
+- Synthetic demo data only
 
-## The Solution
+## Quick Start
 
-SpeakUp runs **100% locally** on any laptop or tablet. It:
+Prerequisites:
 
-1. Accepts **multimodal input** — visual cards, gestures, sounds, pointing, camera
-2. Uses **Gemma 4 via Ollama** to interpret the communicator's likely intent
-3. **Learns each profile's unique communication patterns** through caregiver feedback
-4. **Speaks the interpreted phrase aloud** using on-device TTS
-5. Keeps communication data on-device for inference after the Gemma 4 model is downloaded
-6. Gives parents and caregivers a **command center** for multiple communicator profiles, alerts, reports, care-team notes, and dedicated tablet links
-7. Provides a **dedicated device mode** with common one-tap cards and always-visible Gemma chat for the selected communicator
-
-```
-Communicator points at cup + makes "mmm" sound
-         ↓
-   Gemma 4 (local)
-   + profile memory
-         ↓
-"I want water, please." 🔊
-         ↓
-Caregiver confirms → pattern stored → AI improves
-```
-
-## ⚡ Quick Start
-
-### Prerequisites
 - Python 3.10+
 - Node.js 18+
-- [Ollama](https://ollama.com)
+- Ollama
 
-### Setup
 ```bash
 git clone https://github.com/Hetul803/speakup
 cd speakup
 chmod +x scripts/*.sh
 ./scripts/setup.sh
-```
-
-### Pull Gemma 4 model
-```bash
 ollama pull gemma4:e2b-it-q4_K_M
-```
-
-### Start
-```bash
 ./scripts/start.sh
-# Open http://localhost:5173
 ```
 
-## 🏗️ Architecture
+Open `http://localhost:5173`.
 
-```
-┌─────────────────────────────────────────────┐
-│              SpeakUp Frontend               │
-│         React + Tailwind CSS                │
-│   Visual Cards | Gesture | Sound | Camera  │
-└──────────────────┬──────────────────────────┘
-                   │ REST API
-┌──────────────────▼──────────────────────────┐
-│          FastAPI Backend                    │
-│   Intent Engine → Memory Engine → DB       │
-│         SQLite (fully local)               │
-└──────────────────┬──────────────────────────┘
-                   │ Ollama API
-┌──────────────────▼──────────────────────────┐
-│         Gemma 4 (via Ollama)               │
-│    Multimodal reasoning + JSON output      │
-│       Runs 100% on your device             │
-└─────────────────────────────────────────────┘
+The backend auto-detects available Gemma 4 models and prefers the fine-tuned local model name `speakup-gemma4` when installed. It does not intentionally fall back to non-Gemma models.
+
+## Architecture
+
+```mermaid
+flowchart TD
+    A["Communicator profile"] --> B["React app"]
+    B --> C["Visual cards, gesture, audio, camera, chat"]
+    C --> D["FastAPI backend"]
+    D --> E["SQLite profile memory"]
+    D --> F["Intent engine"]
+    F --> G["Ollama local runtime"]
+    G --> H["Gemma 4"]
+    H --> I["Structured JSON intent"]
+    I --> J["Spoken phrase + caregiver confirmation"]
+    J --> E
+    E --> K["Progress dashboard and care-team export"]
 ```
 
-## 📁 Repository Structure
+## Gemma 4 Integration
 
+SpeakUp sends Gemma 4 structured context:
+
+```json
+{
+  "current_signals": {
+    "gesture": "pointing",
+    "sound": "soft mmm",
+    "object": "cup",
+    "time_of_day": "afternoon"
+  },
+  "profile_memory": {
+    "soft mmm + cup": {
+      "intent": "water",
+      "confirmed": 4
+    }
+  }
+}
 ```
+
+Gemma 4 returns structured JSON:
+
+```json
+{
+  "intent": "I want water",
+  "confidence": 0.94,
+  "spoken_phrase": "I want water, please.",
+  "explanation": "The soft vocalization and cup match confirmed memory.",
+  "alternatives": ["I am thirsty", "I want juice"],
+  "needs_confirmation": false,
+  "urgency": "normal",
+  "emotion_detected": "neutral"
+}
+```
+
+Camera frames are also handled through Gemma 4 multimodal reasoning. The backend first asks Gemma 4 to describe the scene and likely object, then includes that analysis in the final intent prompt.
+
+## Fine-Tuning Proof
+
+The repo includes the Colab notebook used for the T4 LoRA run:
+
+- Notebook: `finetune/GEMMA4HACKATHON.ipynb`
+- Proof summary: `finetune/FINE_TUNE_PROOF.md`
+- Adapter proof files: `finetune/proof/`
+- Base model: `unsloth/gemma-4-E2B-it-unsloth-bnb-4bit`
+- Method: Unsloth QLoRA, rank 8, alpha 16
+- Completed run: 3 epochs, 24 steps
+- Final logged loss: 0.1734
+
+The downloaded adapter zip is not committed because model artifacts should stay out of the public repo. For Kaggle, upload the LoRA zip as a Kaggle Dataset or attach it as a public artifact, then link it in the write-up.
+
+## Repository Map
+
+```text
 speakup/
-├── backend/              # FastAPI + SQLite + Gemma 4 integration
-│   ├── main.py           # API entry point
-│   ├── intent_engine.py  # Core AI — Gemma 4 prompt & reasoning
-│   ├── memory_engine.py  # Profile-specific pattern memory
-│   ├── crud.py           # Database operations
-│   └── routers/          # API endpoints
-├── frontend/             # React + Tailwind
-│   └── src/
-│       ├── pages/        # Home, About, ParentCenter, ChildDevice, CommunicationScreen, Dashboard, Care Team
-│       └── components/   # VisualCards, Gesture, Sound, Camera, Confirmation
-├── finetune/             # Unsloth fine-tuning for Gemma 4
-│   ├── finetune_gemma.py # Training script
-│   ├── push_to_ollama.py # Convert & load fine-tuned model
-│   └── dataset/          # AAC training data (JSONL)
-├── docs/                 # Architecture, benchmarks, writeup
-└── scripts/              # Setup and start scripts
+├── backend/                 FastAPI, SQLite, Gemma 4 integration
+├── frontend/                React + Tailwind app
+├── finetune/                Unsloth dataset, notebooks, LoRA proof
+├── docs/                    Kaggle write-up, checklist, video assets
+├── docs/submission_assets/  Thumbnail, icon, submission images
+└── scripts/                 Setup, start, and demo recording helpers
 ```
 
-## 🔬 Technical Details
+## Ethical Positioning
 
-### Gemma 4 Usage
-- **Model**: `gemma4:e2b-it-q4_K_M` via Ollama by default; `speakup-gemma4` after LoRA fine-tuning
-- **Input**: Structured multimodal context + profile memory as JSON
-- **Output**: Structured JSON (intent, confidence, spoken_phrase, explanation, alternatives)
-- **Temperature**: 0.2 — deterministic, reliable outputs
-- **Privacy**: No cloud inference after the Gemma 4 model is downloaded
+SpeakUp is an assistive communication support tool. It is not a medical device, diagnostic tool, emergency service, or replacement for licensed clinicians, therapists, educators, or official care plans. Predictions should be reviewed by caregivers, and urgent or unclear situations should be handled by the responsible adult or care team.
 
-### Memory System
-Each communicator has a private memory profile:
-- Gesture patterns → confirmed intents
-- Sound patterns → confirmed intents
-- Object associations → confirmed intents
-- Time/routine patterns
-- Caregiver notes (fed to AI context)
+## License
 
-### Learning Loop
-1. Communicator signals → Gemma 4 predicts intent
-2. If confidence < 65% → ask caregiver to confirm
-3. Caregiver confirms or corrects
-4. Pattern saved to SQLite
-5. Next prediction uses updated memory → improved accuracy
-
-## 📊 Benchmarks
-
-| Metric | Current Status |
-|--------|----------------|
-| Local Gemma 4 health | Verified with `gemma4:e2b-it-q4_K_M` |
-| Intent JSON output | Verified in local smoke test |
-| Memory-aware chat | Verified with synthetic Emma demo |
-| Memory lookup | Local SQLite, sub-second |
-| Storage per profile | Small local SQLite records |
-
-## 🔒 Privacy
-
-- All data stored in local SQLite database
-- No API keys required
-- No telemetry
-- No internet required after model download
-- Profile data never leaves the device
-
-## 🏥 Ethical Statement
-
-SpeakUp is an **assistive communication tool** — not a medical device or diagnostic tool.
-- All predictions require caregiver review
-- Low-confidence cases always ask for confirmation
-- Urgency flagging for distress signals
-- No real profile data used in development
-
-## 🤝 License
-
-MIT — free for personal, educational, and research use.
-
----
-
-*Built for the Kaggle Gemma 4 Good Hackathon — using Gemma 4 + Ollama + Unsloth*
+MIT
