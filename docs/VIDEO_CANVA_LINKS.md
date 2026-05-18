@@ -24,6 +24,10 @@ Generated for the Kaggle Gemma 4 Good Hackathon submission package.
 Judges should see real working app footage, not only AI-generated visuals.
 
 ## Captured Real App Walkthrough
+- Final story video for submission: `docs/demo_assets/speakup_story_demo_final.mp4`
+- Story WebM source: `docs/demo_assets/speakup_story_demo_captioned.webm`
+- Neural voiceover audio: `docs/demo_assets/speakup_story_voiceover.mp3`
+- Story script and timing: `docs/demo_assets/video_story_script.json`, `docs/demo_assets/video_story_timing.json`
 - Silent WebM walkthrough: `docs/demo_assets/speakup_app_walkthrough_silent.webm`
 - Captioned WebM walkthrough: `docs/demo_assets/speakup_demo_captioned.webm`
 - Captioned MP4 with voiceover: `docs/demo_assets/speakup_demo_captioned_voiceover.mp4`
@@ -33,4 +37,4 @@ Judges should see real working app footage, not only AI-generated visuals.
 - Screenshot sequence: `docs/demo_assets/screenshots/`
 - Submission thumbnail and icon: `docs/submission_assets/`
 
-The MP4 is 1 minute 34 seconds, includes on-screen captions plus generated voiceover audio, and is ready to upload to YouTube or import into Canva for final trims.
+Use `speakup_story_demo_final.mp4` for the Kaggle/YouTube submission. It is 2 minutes 46 seconds, includes synced on-screen captions, camera usage, a held Gemma response, and a smoother neural voiceover.

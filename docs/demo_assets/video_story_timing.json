@@ -1,0 +1,91 @@
+{
+  "voice": "en-US-AriaNeural",
+  "rate": "+10%",
+  "total_duration": 166.608,
+  "scenes": [
+    {
+      "id": "01_about",
+      "caption": "The problem: many people have intent, emotion, and needs before speech can carry them.",
+      "voiceover": "Every day, a parent may know their child is trying to say something, but not know exactly what. The need might be water, pain, sensory overload, or simply wanting a break. For many autistic, nonspeaking, minimally speaking, AAC, aphasia, and apraxia communicators, the problem is not intelligence. The problem is access to a reliable bridge.",
+      "audio": "/Users/hetulpatel/Downloads/speakup/docs/demo_assets/story_voice/01_01_about.mp3",
+      "duration": 22.464
+    },
+    {
+      "id": "02_solution",
+      "caption": "SpeakUp turns personal signals into words with local Gemma 4 and caregiver confirmation.",
+      "voiceover": "SpeakUp is that bridge. It is a local Gemma 4 communication companion that turns personal signals into plain language, speaks the phrase aloud, and learns only when a caregiver confirms the meaning.",
+      "audio": "/Users/hetulpatel/Downloads/speakup/docs/demo_assets/story_voice/02_02_solution.mp3",
+      "duration": 12.0
+    },
+    {
+      "id": "03_profiles",
+      "caption": "Each communicator gets a private profile, memory, and dedicated device mode.",
+      "voiceover": "A family can support more than one communicator without mixing their history. Emma and Noah each have a separate profile, separate memory, and a dedicated device mode for their own tablet.",
+      "audio": "/Users/hetulpatel/Downloads/speakup/docs/demo_assets/story_voice/03_03_profiles.mp3",
+      "duration": 11.328
+    },
+    {
+      "id": "04_parent",
+      "caption": "Parents manage profiles, alerts, exports, and care-team details from one command center.",
+      "voiceover": "The parent command center is where the adult has control. They can manage profiles, see alerts, review progress, export notes, and keep therapist or care-team details attached to the right person.",
+      "audio": "/Users/hetulpatel/Downloads/speakup/docs/demo_assets/story_voice/04_04_parent.mp3",
+      "duration": 12.12
+    },
+    {
+      "id": "05_device",
+      "caption": "Device mode keeps the communicator's first screen simple: big cards plus always-visible Gemma chat.",
+      "voiceover": "When Emma opens her dedicated device, she does not have to navigate a complicated app. The first screen is simple: big common cards, a few familiar signals, and Gemma chat always visible on the side.",
+      "audio": "/Users/hetulpatel/Downloads/speakup/docs/demo_assets/story_voice/05_05_device.mp3",
+      "duration": 12.552
+    },
+    {
+      "id": "06_water",
+      "caption": "Emma taps Water. Local Gemma 4 combines the signal with her remembered patterns.",
+      "voiceover": "Now Emma taps Water. SpeakUp sends that signal, the time of day, and Emma's confirmed communication history to Gemma 4 running locally through Ollama. The app waits for a real response, then gives the caregiver a structured prediction.",
+      "audio": "/Users/hetulpatel/Downloads/speakup/docs/demo_assets/story_voice/06_06_water.mp3",
+      "duration": 14.736
+    },
+    {
+      "id": "07_result",
+      "caption": "Gemma returns a phrase, confidence, explanation, alternatives, and confirmation state.",
+      "voiceover": "The result is not just a chatbot answer. Gemma returns a phrase Emma can use, a confidence score, an explanation, two alternatives, and whether the caregiver should confirm before the app learns from it.",
+      "audio": "/Users/hetulpatel/Downloads/speakup/docs/demo_assets/story_voice/07_07_result.mp3",
+      "duration": 12.264
+    },
+    {
+      "id": "08_camera",
+      "caption": "Camera is optional. The caregiver can use it, or keep preview hidden for sensory comfort.",
+      "voiceover": "If Emma is pointing at something instead of pressing a card, the caregiver can open advanced communication tools. Camera context can identify the object or scene, but the preview can stay hidden because some communicators are sensitive to seeing themselves on screen.",
+      "audio": "/Users/hetulpatel/Downloads/speakup/docs/demo_assets/story_voice/08_08_camera.mp3",
+      "duration": 15.024
+    },
+    {
+      "id": "09_chat",
+      "caption": "The chat remembers confirmed patterns, so a soft sound can become useful context.",
+      "voiceover": "The Gemma chat also uses profile memory. If Emma makes a soft sound, SpeakUp can connect that sound to earlier confirmed patterns, ask better follow-up questions, and help the caregiver understand the moment faster.",
+      "audio": "/Users/hetulpatel/Downloads/speakup/docs/demo_assets/story_voice/09_09_chat.mp3",
+      "duration": 13.152
+    },
+    {
+      "id": "10_progress",
+      "caption": "Progress reports turn daily interactions into patterns caregivers can act on.",
+      "voiceover": "Over time, those confirmed moments become a progress story. Parents can see what was communicated this week, which patterns are emerging, and what changed in daily routines.",
+      "audio": "/Users/hetulpatel/Downloads/speakup/docs/demo_assets/story_voice/10_10_progress.mp3",
+      "duration": 10.536
+    },
+    {
+      "id": "11_care",
+      "caption": "Therapists and care teams get clearer notes without replacing clinical judgment.",
+      "voiceover": "Therapists and care teams get a cleaner handoff. They can review notes and patterns, but SpeakUp stays honest: it is assistive support, not a diagnosis, medical device, emergency service, or replacement for licensed care.",
+      "audio": "/Users/hetulpatel/Downloads/speakup/docs/demo_assets/story_voice/11_11_care.mp3",
+      "duration": 13.704
+    },
+    {
+      "id": "12_close",
+      "caption": "Private, local, personalized communication support powered by Gemma 4.",
+      "voiceover": "The impact is simple. A family gets a private, local, personalized communication tool that can run on a laptop or tablet. SpeakUp does not claim to replace people. It helps people understand each other sooner. That is the voice we are trying to make heard.",
+      "audio": "/Users/hetulpatel/Downloads/speakup/docs/demo_assets/story_voice/12_12_close.mp3",
+      "duration": 16.728
+    }
+  ]
+}
