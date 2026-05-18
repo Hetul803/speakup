@@ -7,6 +7,7 @@ import TherapistView from './pages/TherapistView'
 import GemmaChat from './pages/GemmaChat'
 import ParentCenter from './pages/ParentCenter'
 import ChildDevice from './pages/ChildDevice'
+import AboutSpeakUp from './pages/AboutSpeakUp'
 import Navbar from './components/Navbar'
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutSpeakUp />} />
           <Route path="/parent" element={<ParentCenter />} />
           <Route path="/device/:childId" element={<ChildDevice />} />
           <Route path="/communicate/:childId" element={<CommunicationScreen />} />

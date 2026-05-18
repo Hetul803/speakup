@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft, Bot, Mic, Square, Send, UserRound, Sparkles, BarChart2, ShieldCheck } from 'lucide-react'
 import { childrenAPI, chatAPI } from '../api/client'
 
@@ -20,6 +20,7 @@ const QUICK_SIGNALS = [
 export default function GemmaChat() {
   const { childId } = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
   const [profile, setProfile] = useState(null)
   const [profiles, setProfiles] = useState([])
   const [messages, setMessages] = useState([])
@@ -32,7 +33,7 @@ export default function GemmaChat() {
 
   useEffect(() => {
     setMessages([])
-    childrenAPI.get(childId).then(setProfile).catch(() => navigate('/'))
+    childrenAPI.get(childId).then(setProfile).catch(() => navigate('/parent'))
     childrenAPI.list().then(setProfiles).catch(() => {})
   }, [childId])
 
@@ -112,7 +113,7 @@ export default function GemmaChat() {
     <div className="max-w-5xl mx-auto px-4 py-6">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-5">
         <div className="flex items-center gap-3">
-          <button onClick={() => navigate('/')} className="text-gray-400 hover:text-gray-700 p-1">
+          <button onClick={() => navigate(location.state?.fromDevice ? `/device/${childId}` : '/parent')} className="text-gray-400 hover:text-gray-700 p-1">
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div className="w-11 h-11 rounded-full bg-teal-600 text-white flex items-center justify-center">

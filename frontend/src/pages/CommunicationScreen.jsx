@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { childrenAPI, interactionsAPI } from '../api/client'
 import VisualCardGrid from '../components/VisualCardGrid'
 import GesturePanel from '../components/GesturePanel'
@@ -12,6 +12,7 @@ import { Sparkles, RotateCcw, ArrowLeft, BarChart2, ChevronDown, ChevronUp, Aler
 export default function CommunicationScreen() {
   const { childId } = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
   const [child, setChild] = useState(null)
   const [selectedCard, setSelectedCard] = useState(null)
   const [selectedGesture, setSelectedGesture] = useState(null)
@@ -28,15 +29,19 @@ export default function CommunicationScreen() {
   const [currentInteractionId, setCurrentInteractionId] = useState(null)
   const [learningMessage, setLearningMessage] = useState(null)
   const [showInputs, setShowInputs] = useState(true)
-  const [inputSection, setInputSection] = useState('cards')
+  const [inputSection, setInputSection] = useState(location.state?.inputSection || 'cards')
   const resultRef = useRef(null)
   const loadingIntervalRef = useRef(null)
 
   useEffect(() => {
     childrenAPI.get(childId).then(c => {
       setChild(c)
-    }).catch(() => navigate('/'))
+    }).catch(() => navigate('/parent'))
   }, [childId])
+
+  function goBack() {
+    navigate(location.state?.fromDevice ? `/device/${childId}` : '/parent')
+  }
 
   const hasInput = selectedCard || selectedGesture || selectedSound || selectedObject || cameraImageB64
 
@@ -138,7 +143,7 @@ export default function CommunicationScreen() {
       {/* Header */}
       <div className="flex items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-3">
-          <button onClick={() => navigate('/')} className="text-gray-400 hover:text-gray-700 p-1">
+          <button onClick={goBack} className="text-gray-400 hover:text-gray-700 p-1">
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm"

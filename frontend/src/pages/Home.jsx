@@ -2,13 +2,12 @@ import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { childrenAPI, demoAPI } from '../api/client'
 import {
-  Accessibility,
   Activity,
   ArrowRight,
   BarChart2,
   Bell,
+  BookOpen,
   Bot,
-  Brain,
   Camera,
   ClipboardCheck,
   Cpu,
@@ -16,9 +15,7 @@ import {
   Edit,
   FlaskConical,
   Hand,
-  HeartPulse,
   Home as HomeIcon,
-  LifeBuoy,
   LockKeyhole,
   MessageCircle,
   Mic,
@@ -32,29 +29,6 @@ import {
   Wifi,
   WifiOff,
 } from 'lucide-react'
-
-const AUDIENCE = [
-  {
-    icon: Brain,
-    title: 'Autistic and neurodivergent communicators',
-    text: 'For people whose sounds, gestures, routines, sensory needs, or AAC choices carry meaning before words arrive.',
-  },
-  {
-    icon: Accessibility,
-    title: 'AAC users and nonspeaking people',
-    text: 'For children, teens, and adults who communicate through pointing, cards, devices, expressions, or partner interpretation.',
-  },
-  {
-    icon: HeartPulse,
-    title: 'Aphasia, apraxia, motor speech, and medical needs',
-    text: 'For moments when speech is unreliable because of stroke recovery, motor planning, cerebral palsy, fatigue, or care routines.',
-  },
-  {
-    icon: LifeBuoy,
-    title: 'Parents, caregivers, teachers, and therapists',
-    text: 'For the support team that needs clearer logs, safer handoffs, and one shared memory of what each signal usually means.',
-  },
-]
 
 const SIGNALS = [
   { icon: Mic, label: 'Sound', detail: 'hums, cries, mmm, breathing' },
@@ -154,6 +128,12 @@ export default function Home() {
           <p className="text-gray-700 mt-4 max-w-3xl text-base">
             Autism is one important use case, but SpeakUp is broader: it supports minimally speaking and non-speaking communicators of any age, including AAC users, people with apraxia or aphasia, medically complex people, and anyone whose sounds, gestures, expressions, or context need to become clearer words.
           </p>
+          <button
+            onClick={() => navigate('/about')}
+            className="mt-5 inline-flex items-center gap-2 bg-white text-teal-800 border border-teal-100 px-4 py-2 rounded-xl text-sm font-bold hover:bg-teal-50"
+          >
+            <BookOpen className="w-4 h-4" /> What is SpeakUp?
+          </button>
 
           <div className="grid grid-cols-1 2xl:grid-cols-3 gap-3 mt-6">
             {[
@@ -164,22 +144,6 @@ export default function Home() {
               <div key={title} className="bg-white/88 border border-gray-100 rounded-xl p-4 min-h-[96px]">
                 <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">{title}</p>
                 <p className="text-sm text-gray-700 mt-2 leading-relaxed">{text}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-            {AUDIENCE.map(item => (
-              <div key={item.title} className="bg-emerald-50/70 border border-emerald-100 rounded-xl p-4 min-h-[138px]">
-                <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-white text-teal-700 flex items-center justify-center flex-shrink-0">
-                    <item.icon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-gray-950 leading-snug">{item.title}</h3>
-                    <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">{item.text}</p>
-                  </div>
-                </div>
               </div>
             ))}
           </div>
@@ -255,12 +219,15 @@ export default function Home() {
 
           <div className="bg-white/88 border border-gray-100 rounded-2xl p-5 shadow-sm">
             <div className="flex items-center gap-2">
-              <ClipboardCheck className="w-5 h-5 text-teal-700" />
-              <h2 className="font-bold text-gray-950">Clear boundary</h2>
+              <BookOpen className="w-5 h-5 text-teal-700" />
+              <h2 className="font-bold text-gray-950">What is this?</h2>
             </div>
             <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-              SpeakUp supports communication and care-team documentation. It does not diagnose autism, replace therapy, or make emergency medical decisions.
+              A short explainer page shows who SpeakUp is for, what it helps with, and what it is not.
             </p>
+            <button onClick={() => navigate('/about')} className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-teal-800 hover:text-teal-950">
+              Read the explainer <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         </aside>
       </section>
@@ -299,8 +266,8 @@ export default function Home() {
               <h2 className="text-xl font-bold text-gray-900">Profiles on this parent device</h2>
               <p className="text-sm text-gray-500">Add or remove named communicator profiles stored locally.</p>
             </div>
-            <button onClick={() => navigate('/profile/new')} className="inline-flex items-center justify-center gap-2 bg-teal-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-teal-700">
-              <Plus className="w-4 h-4" /> Add Profile
+            <button onClick={() => navigate('/parent')} className="inline-flex items-center justify-center gap-2 bg-teal-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-teal-700">
+              <Plus className="w-4 h-4" /> Manage Profiles
             </button>
           </div>
 
@@ -402,8 +369,8 @@ export default function Home() {
                     <button onClick={() => navigate('/parent')} className="inline-flex items-center justify-center gap-2 bg-white text-teal-950 py-3 rounded-xl text-sm font-bold hover:bg-teal-50">
                       Open Parent Center <ArrowRight className="w-4 h-4" />
                     </button>
-                    <button onClick={() => navigate('/profile/new')} className="inline-flex items-center justify-center gap-2 bg-white/10 text-white border border-white/15 py-3 rounded-xl text-sm font-bold hover:bg-white/15">
-                      <Plus className="w-4 h-4" /> Add Another Profile
+                    <button onClick={() => navigate('/parent')} className="inline-flex items-center justify-center gap-2 bg-white/10 text-white border border-white/15 py-3 rounded-xl text-sm font-bold hover:bg-white/15">
+                      <Plus className="w-4 h-4" /> Manage Profiles
                     </button>
                   </div>
                 </div>

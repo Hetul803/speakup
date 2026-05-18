@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Users, Heart, ShieldCheck } from 'lucide-react'
+import { BookOpen, Heart, ShieldCheck, Users } from 'lucide-react'
 
 export default function Navbar() {
   const loc = useLocation()
@@ -17,6 +17,10 @@ export default function Navbar() {
           <Link to="/" className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${loc.pathname === '/' ? 'bg-teal-50 text-teal-700' : 'text-gray-600 hover:bg-gray-50'}`}>
             <Users className="w-4 h-4" />
             <span className="hidden sm:block">Profiles</span>
+          </Link>
+          <Link to="/about" className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${loc.pathname === '/about' ? 'bg-teal-50 text-teal-700' : 'text-gray-600 hover:bg-gray-50'}`}>
+            <BookOpen className="w-4 h-4" />
+            <span className="hidden sm:block">About</span>
           </Link>
           <Link to="/parent" className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${loc.pathname === '/parent' ? 'bg-teal-50 text-teal-700' : 'text-gray-600 hover:bg-gray-50'}`}>
             <ShieldCheck className="w-4 h-4" />

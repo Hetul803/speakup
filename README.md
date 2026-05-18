@@ -34,6 +34,7 @@ SpeakUp runs **100% locally** on any laptop or tablet. It:
 4. **Speaks the interpreted phrase aloud** using on-device TTS
 5. Keeps communication data on-device for inference after the Gemma 4 model is downloaded
 6. Gives parents and caregivers a **command center** for multiple communicator profiles, alerts, reports, care-team notes, and dedicated tablet links
+7. Provides a **dedicated device mode** with common one-tap cards and always-visible Gemma chat for the selected communicator
 
 ```
 Communicator points at cup + makes "mmm" sound
@@ -106,7 +107,7 @@ speakup/
 │   └── routers/          # API endpoints
 ├── frontend/             # React + Tailwind
 │   └── src/
-│       ├── pages/        # Home, ParentCenter, ChildDevice, CommunicationScreen, Dashboard, Care Team
+│       ├── pages/        # Home, About, ParentCenter, ChildDevice, CommunicationScreen, Dashboard, Care Team
 │       └── components/   # VisualCards, Gesture, Sound, Camera, Confirmation
 ├── finetune/             # Unsloth fine-tuning for Gemma 4
 │   ├── finetune_gemma.py # Training script

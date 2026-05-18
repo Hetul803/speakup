@@ -10,6 +10,7 @@ import {
   FlaskConical,
   LockKeyhole,
   MessageCircle,
+  Plus,
   ShieldCheck,
   Stethoscope,
   TrendingUp,
@@ -112,6 +113,9 @@ export default function ParentCenter() {
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
+          <button onClick={() => navigate('/profile/new')} className="inline-flex items-center gap-2 bg-teal-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-teal-700">
+            <Plus className="w-4 h-4" /> Add Profile
+          </button>
           <button onClick={seedFamily} disabled={seeding} className="inline-flex items-center gap-2 bg-white border border-teal-100 text-teal-800 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-teal-50 disabled:opacity-60">
             <FlaskConical className="w-4 h-4" /> {seeding ? 'Loading...' : 'Load Family Demo'}
           </button>

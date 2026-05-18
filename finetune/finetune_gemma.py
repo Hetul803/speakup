@@ -28,17 +28,17 @@ except ImportError:
     UNSLOTH_AVAILABLE = False
 
 # === Config ===
-# Override from Colab with: MODEL_NAME=unsloth/gemma-4-31B-it-unsloth-bnb-4bit python finetune_gemma.py
-MODEL_NAME = os.getenv("MODEL_NAME", "unsloth/gemma-4-E4B-it-unsloth-bnb-4bit")
-MAX_SEQ_LENGTH = 2048
+# T4-safe default. Override with Gemma 4 E4B/31B only if your GPU has enough VRAM.
+MODEL_NAME = os.getenv("MODEL_NAME", "unsloth/gemma-4-E2B-it-unsloth-bnb-4bit")
+MAX_SEQ_LENGTH = int(os.getenv("MAX_SEQ_LENGTH", "1024"))
 LOAD_IN_4BIT = True
-LORA_RANK = 32
-LORA_ALPHA = 64
+LORA_RANK = int(os.getenv("LORA_RANK", "8"))
+LORA_ALPHA = int(os.getenv("LORA_ALPHA", str(LORA_RANK * 2)))
 OUTPUT_DIR = "./speakup-gemma4-lora"
-NUM_EPOCHS = 3
-BATCH_SIZE = 2
-GRAD_ACCUMULATION = 4
-LEARNING_RATE = 2e-4
+NUM_EPOCHS = int(os.getenv("NUM_EPOCHS", "3"))
+BATCH_SIZE = int(os.getenv("BATCH_SIZE", "1"))
+GRAD_ACCUMULATION = int(os.getenv("GRAD_ACCUMULATION", "8"))
+LEARNING_RATE = float(os.getenv("LEARNING_RATE", "2e-4"))
 
 SYSTEM_PROMPT = """You are SpeakUp's AI intent engine for minimally speaking and non-speaking communicators. Respond ONLY with valid JSON."""
 

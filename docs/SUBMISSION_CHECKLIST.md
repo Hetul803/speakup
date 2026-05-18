@@ -17,17 +17,18 @@ Deadline: May 18, 2026 at 11:59 PM UTC (6:59 PM CDT in Chicago).
 - Public YouTube video, 3 minutes or less.
 - Kaggle write-up with architecture, model choice, limitations, and impact story.
 - Clear mention that demo data is synthetic and no real profile data was used.
+- Canva video assets in `docs/VIDEO_CANVA_LINKS.md`.
 
 ## Demo Flow
 
-1. Open the app and click `Open Demo`.
-2. Show Parent Center with Emma Demo and Noah Demo, separate care plans, alerts, and dedicated device links.
-3. Open Emma's dedicated device mode to show how one iPad can be focused on one communicator.
-4. Start a new communication with visual card + gesture + sound + camera frame.
-5. Hit `Interpret with Gemma 4`.
-6. Show the spoken phrase, confidence, explanation, alternatives, input channels, and model tag.
-7. Tap `That's right` or correct it.
-8. Open Gemma chat, switch profiles, ask for progress, and show the care-team export.
+1. Open the app and click `What is SpeakUp?` to explain who it helps.
+2. Open Parent Center, then show Emma Demo and Noah Demo with separate care plans, alerts, and dedicated device links.
+3. Open Emma's dedicated device mode to show one iPad focused on one communicator.
+4. Tap one common card and show SpeakUp asking Gemma 4, speaking the phrase, and offering caregiver confirmation.
+5. Show the always-visible Gemma chat panel in dedicated device mode.
+6. Open optional audio/camera tools only after the simple one-tap flow is clear.
+7. Show progress and care-team export.
+8. End with local Gemma 4/Ollama proof and the T4 fine-tuning notebook.
 
 ## Compliance Notes
 
@@ -36,6 +37,7 @@ Deadline: May 18, 2026 at 11:59 PM UTC (6:59 PM CDT in Chicago).
 - Use the phrase "assistive communication companion" consistently.
 - Keep all demo profiles synthetic unless explicit consent and releases exist.
 - Show privacy plainly: local SQLite, local Ollama, browser speech synthesis, and no cloud inference once the Gemma 4 model is downloaded.
+- Do not share Colab, Kaggle, Google, or GitHub passwords/tokens with collaborators. Use account-owned notebooks, Kaggle secrets, or publishable artifacts.
 
 ## Fine-Tuning Proof
 
@@ -47,5 +49,6 @@ Include these only after running the notebook/script:
 - Training loss screenshot.
 - Exported GGUF model name.
 - Before/after JSON reliability and held-out scenario accuracy.
+- If you only have Colab T4, use `finetune/SpeakUp_Gemma4_T4_Finetune.ipynb` and submit the LoRA adapter zip/logs as proof instead of trying to upload a large GGUF.
 
 If fine-tuning is not completed before submission, say the repo includes a reproducible Unsloth fine-tuning pipeline and submit for the Ollama/Main/Impact tracks instead of overstating the Unsloth result.
