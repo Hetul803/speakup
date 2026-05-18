@@ -59,9 +59,34 @@ class CaregiverNoteCreate(BaseModel):
     note: str
     category: Optional[str] = "general"
 
+class CaregiverNoteResponse(BaseModel):
+    id: int
+    child_id: int
+    note: str
+    category: Optional[str]
+    created_at: datetime
+    class Config:
+        from_attributes = True
+
 class ImageDescribeRequest(BaseModel):
     child_id: int
     image_b64: str
+
+class ChatRequest(BaseModel):
+    child_id: int
+    message: str
+    sender: Optional[str] = "caregiver"  # caregiver | communicator
+    signal_label: Optional[str] = None
+    include_progress: bool = True
+
+class ChatResponse(BaseModel):
+    model_config = ConfigDict(protected_namespaces=())
+
+    reply: str
+    mode: str
+    model_name: Optional[str] = None
+    memory_used: List[str] = Field(default_factory=list)
+    suggested_phrase: Optional[str] = None
 
 class DashboardResponse(BaseModel):
     child_id: int

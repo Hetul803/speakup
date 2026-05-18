@@ -5,7 +5,7 @@
 *[Quiet close-up of a parent at a kitchen table, then the SpeakUp app opening. Use synthetic/demo footage only.]*
 
 VOICEOVER:
-"1 in 36 children are diagnosed with autism in the United States.
+"Millions of people are minimally speaking or non-speaking because of autism, cerebral palsy, aphasia, developmental disabilities, injury, or other conditions.
 3.5 million people in America are non-verbal or minimally verbal.
 They have thoughts, needs, feelings — but no easy way to share them."
 
@@ -14,7 +14,7 @@ They have thoughts, needs, feelings — but no easy way to share them."
 "The devices that can help cost up to $12,000.
 Most families cannot afford them.
 Most schools don't have them.
-And even when families find a device — it's static. It doesn't learn their child."
+And even when families find a device — it's static. It doesn't learn the communicator's personal signals."
 
 ---
 
@@ -25,9 +25,9 @@ And even when families find a device — it's static. It doesn't learn their chi
 VOICEOVER:
 "Meet SpeakUp. A free, offline AI communication companion — powered by Gemma 4."
 
-*[Show child profile creation — 10 seconds]*
+*[Show communicator profile creation — 10 seconds]*
 
-"Create a profile for your child in seconds."
+"Create a private communication profile in seconds."
 
 *[Show visual card grid — adult taps 'water' card]*
 
@@ -54,7 +54,7 @@ VOICEOVER:
 
 *[Show dashboard — '8 communications this week. 3 new patterns learned.']*
 
-"Over time, accuracy improves. The AI adapts to this specific child — not a generic model."
+"Over time, accuracy improves. The AI adapts to this specific communicator — not a generic model."
 
 ---
 
@@ -63,13 +63,13 @@ VOICEOVER:
 *[Show phone with airplane mode ON in corner — clearly visible]*
 
 VOICEOVER:
-"Everything runs locally. Gemma 4 on Ollama. SQLite database. Web Speech API.
-Zero data leaves this device. Ever."
+"Everything runs locally after setup. Gemma 4 on Ollama. SQLite database. Browser speech synthesis.
+No communication data leaves this device for cloud inference."
 
-*[Show terminal: ollama run hf.co/unsloth/gemma-4-E4B-it-GGUF — model responding with JSON]*
+*[Show terminal: ollama run gemma4:e2b-it-q4_K_M — model responding with JSON]*
 
 "Gemma 4 interprets multimodal signals — gesture, sound, object, visual card, time of day.
-It combines them with child-specific memory patterns stored privately on-device."
+It combines them with profile-specific memory patterns stored privately on-device."
 
 *[Show JSON output in terminal — clean and structured]*
 
@@ -78,7 +78,7 @@ It combines them with child-specific memory patterns stored privately on-device.
 *[Show therapist view — pattern list, export button]*
 
 "Speech-language pathologists get a structured view of learned patterns.
-Professional notes are fed back into the AI to improve future predictions."
+Care-team notes and contact details are kept with the profile and fed back into future predictions."
 
 *[Show Kaggle judge demo button and dashboard. Label it synthetic demo data.]* 
 
@@ -86,19 +86,19 @@ Professional notes are fed back into the AI to improve future predictions."
 
 ## [2:30 – 3:00] THE IMPACT
 
-*[Return to the parent and child]*
+*[Return to the caregiver and communicator]*
 
 VOICEOVER:
 "SpeakUp is free.
 It works on any laptop or tablet.
 It requires no internet.
-And unlike $8,000 devices — it learns this specific child."
+And unlike $8,000 devices — it learns this specific person."
 
 *[Show the dashboard: '23 communications this week. New milestone!']*
 
 "A $12,000 device → $0. Fully private. Works anywhere."
 
-*[Final shot: parent and child together. Child 'communicates' — parent smiles.]*
+*[Final shot: caregiver and communicator together. The communicator shares a need; the caregiver understands.]*
 
 "3.5 million voices. All of them deserve to be heard."
 

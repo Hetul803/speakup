@@ -40,7 +40,7 @@ BATCH_SIZE = 2
 GRAD_ACCUMULATION = 4
 LEARNING_RATE = 2e-4
 
-SYSTEM_PROMPT = """You are SpeakUp's AI intent engine for non-verbal children. Respond ONLY with valid JSON."""
+SYSTEM_PROMPT = """You are SpeakUp's AI intent engine for minimally speaking and non-speaking communicators. Respond ONLY with valid JSON."""
 
 def load_dataset_from_jsonl(path: str):
     data = []
@@ -141,7 +141,7 @@ def main():
     # Benchmark
     print("\n=== Quick Benchmark ===")
     FastLanguageModel.for_inference(model)
-    test_input = """Child: points at cup, soft mmm sound. Time: afternoon. Memory: soft mmm + cup = water (confirmed 3x)."""
+    test_input = """Communicator: points at cup, soft mmm sound. Time: afternoon. Memory: soft mmm + cup = water (confirmed 3x)."""
     inputs = tokenizer([f"<start_of_turn>user\n{test_input}<end_of_turn>\n<start_of_turn>model\n"], return_tensors="pt").to("cuda")
     outputs = model.generate(**inputs, max_new_tokens=256, temperature=0.2)
     print(tokenizer.decode(outputs[0], skip_special_tokens=True))

@@ -13,7 +13,7 @@ OLLAMA_MODEL_NAME = "speakup-gemma4"
 
 MODELFILE = f"""FROM {GGUF_PATH}
 
-SYSTEM You are SpeakUp's AI intent engine. You help non-verbal and minimally verbal autistic children communicate. Given multimodal signals and child memory, predict communication intent. Respond ONLY with valid JSON.
+SYSTEM You are SpeakUp's AI intent engine. You help minimally speaking and non-speaking communicators communicate. Given multimodal signals and profile memory, predict communication intent. Respond ONLY with valid JSON.
 
 PARAMETER temperature 0.2
 PARAMETER top_p 0.9
@@ -51,7 +51,7 @@ def main():
 
     print("Step 4: Testing model...")
     result = subprocess.run(
-        ["ollama", "run", OLLAMA_MODEL_NAME, "Child: points at cup. Time: afternoon. Predict intent."],
+        ["ollama", "run", OLLAMA_MODEL_NAME, "Communicator: points at cup. Time: afternoon. Predict intent."],
         capture_output=True, text=True, timeout=30
     )
     print(result.stdout)

@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { Mic, MicOff, Square } from 'lucide-react'
+import { Mic, Square, Waves, EyeOff } from 'lucide-react'
 
 const PRESET_SOUNDS = [
   { id: 'soft_mmm', label: 'Soft "mmm"', emoji: '🎵' },
@@ -19,6 +19,7 @@ export default function SoundRecorder({ onSoundSelect, selectedSound }) {
   const [customSound, setCustomSound] = useState('')
   const [showCustom, setShowCustom] = useState(false)
   const [waveform, setWaveform] = useState([])
+  const [showWaveform, setShowWaveform] = useState(true)
   const mediaRecorderRef = useRef(null)
   const animFrameRef = useRef(null)
   const analyserRef = useRef(null)
@@ -101,16 +102,32 @@ export default function SoundRecorder({ onSoundSelect, selectedSound }) {
 
       {/* Live recorder */}
       <div className="border-t border-gray-100 pt-3">
-        <p className="text-xs text-gray-500 mb-2">Or record the sound directly:</p>
+        <div className="flex items-center justify-between gap-2 mb-2">
+          <p className="text-xs text-gray-500">Or record the sound directly:</p>
+          <button
+            type="button"
+            onClick={() => setShowWaveform(v => !v)}
+            className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-indigo-600 px-2 py-1 rounded-lg hover:bg-indigo-50"
+          >
+            {showWaveform ? <Waves className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+            {showWaveform ? 'Waveform on' : 'Quiet mode'}
+          </button>
+        </div>
         {recording ? (
           <div>
-            <div className="flex items-end gap-0.5 h-8 justify-center mb-2">
-              {waveform.map((h, i) => (
-                <div key={i} className="w-2 bg-indigo-500 rounded-full transition-all"
-                  style={{ height: `${h}px` }} />
-              ))}
-              {waveform.length === 0 && <div className="text-xs text-gray-400">Listening...</div>}
-            </div>
+            {showWaveform ? (
+              <div className="flex items-end gap-0.5 h-10 justify-center mb-2 bg-indigo-50 rounded-xl py-2">
+                {waveform.map((h, i) => (
+                  <div key={i} className="w-2 bg-indigo-500 rounded-full transition-all"
+                    style={{ height: `${h}px` }} />
+                ))}
+                {waveform.length === 0 && <div className="text-xs text-gray-400">Listening...</div>}
+              </div>
+            ) : (
+              <div className="h-10 flex items-center justify-center mb-2 bg-gray-50 rounded-xl text-xs text-gray-500">
+                Recording with visual feedback hidden
+              </div>
+            )}
             <button onClick={stopRecording}
               className="w-full flex items-center justify-center gap-2 bg-red-500 text-white py-2 rounded-xl text-sm font-medium hover:bg-red-600">
               <Square className="w-3 h-3" /> Stop recording

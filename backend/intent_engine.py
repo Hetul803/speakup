@@ -6,22 +6,22 @@ import re
 
 logger = logging.getLogger(__name__)
 
-SYSTEM_PROMPT = """You are SpeakUp, an AI communication assistant for non-verbal and minimally verbal autistic children.
+SYSTEM_PROMPT = """You are SpeakUp, an AI communication assistant for minimally speaking and non-speaking communicators.
 
-Your job: given multimodal signals from a child (gestures, sounds, objects, visual cards, images) and their personal communication memory, predict what the child is trying to communicate.
+Your job: given multimodal signals from a communicator (gestures, sounds, objects, visual cards, images) and their personal communication memory, predict what they may be trying to communicate.
 
 CRITICAL RULES:
 - Respond with ONLY valid JSON. No text before or after. No markdown code blocks.
-- If you see a matching pattern in child_memory, heavily weight it — it was confirmed by a real caregiver.
+- If you see a matching pattern in profile memory, heavily weight it because it was confirmed by a real caregiver.
 - Be conservative: when unsure, set needs_confirmation=true and lower confidence.
 - For pain, distress, or safety signals: always set urgency="high".
-- spoken_phrase must be first-person, warm, natural child language.
+- spoken_phrase must be first-person, warm, natural, and age-neutral unless the profile notes clearly imply child language.
 - explanation must cite specific signals that led to your prediction.
 - Always provide exactly 2 alternatives.
 
 JSON schema (respond with this exact structure):
 {
-  "intent": "what the child wants or feels (short phrase)",
+  "intent": "what the communicator wants or feels (short phrase)",
   "confidence": 0.87,
   "spoken_phrase": "I want water, please.",
   "explanation": "Specific signal analysis...",
@@ -150,7 +150,7 @@ async def predict_intent(
         channels.append("camera")
         try:
             logger.info("Running Gemma 4 multimodal image analysis...")
-            desc = await client.describe_image(camera_image_b64, context=f"Child's name: {child_name}, time: {time_of_day}")
+            desc = await client.describe_image(camera_image_b64, context=f"Communicator name: {child_name}, time: {time_of_day}")
             image_analysis = _parse_image_description(desc)
             # Use detected object if none explicitly set
             if image_analysis.get("object") and not object_detected:
@@ -205,7 +205,7 @@ async def predict_intent(
     has_memory = bool(relevant_memory)
     memory_note = "Established personal patterns found — weight these heavily." if has_memory else "No established patterns yet — this may be a new signal."
 
-    prompt = f"""Child: {child_name}
+    prompt = f"""Profile: {child_name}
 
 CURRENT SIGNALS:
 {json.dumps(input_signals, indent=2)}
@@ -218,7 +218,7 @@ Predict what {child_name} is communicating right now.
 Important:
 - If camera_analysis includes an object, use it as visual evidence, but do not over-trust it when other signals disagree.
 - If signals conflict, surface uncertainty and set needs_confirmation=true.
-- If the child may be in pain, scared, overwhelmed, unsafe, or distressed, set urgency="high".
+- If the communicator may be in pain, scared, overwhelmed, unsafe, or distressed, set urgency="high".
 - Return only the JSON object matching the schema."""
 
     # Step 4: Call Gemma 4
@@ -255,7 +255,7 @@ async def describe_image_only(image_b64: str, child_name: str) -> dict:
     """Standalone endpoint: just identify what's in the image"""
     client = OllamaClient()
     try:
-        desc = await client.describe_image(image_b64, context=f"Child: {child_name}")
+        desc = await client.describe_image(image_b64, context=f"Communicator: {child_name}")
         return _parse_image_description(desc)
     except Exception as e:
         return {"error": str(e), "object": None}
@@ -267,7 +267,7 @@ async def generate_learning_message(original_intent: str, corrected_intent: str,
         prompt = f"""Generate one warm, encouraging sentence acknowledging that you learned from a caregiver correction.
 Original AI prediction: "{original_intent}"
 Caregiver's correction: "{corrected_intent}"
-Child's name: {child_name}
+Profile name: {child_name}
 Example: "Got it! I'll remember that this means '{corrected_intent}' for {child_name} next time."
 Respond with just the sentence."""
         return (await client.generate(prompt, temperature=0.5)).strip()

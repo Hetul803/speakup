@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { dashboardAPI, childrenAPI } from '../api/client'
+import { dashboardAPI } from '../api/client'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
-import { ArrowLeft, MessageCircle, Brain, TrendingUp, Star, Trophy, AlertTriangle, Gauge, Layers } from 'lucide-react'
+import { ArrowLeft, MessageCircle, Brain, TrendingUp, Star, Trophy, AlertTriangle, Gauge, Layers, Bot, UserRound } from 'lucide-react'
 
 const PIE_COLORS = ['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ef4444', '#14b8a6']
 
@@ -21,11 +21,24 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="flex items-center gap-3 mb-8">
-        <button onClick={() => navigate('/')} className="text-gray-400 hover:text-gray-700"><ArrowLeft className="w-5 h-5" /></button>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{data.child_name}'s Progress</h1>
-          <p className="text-gray-500 text-sm">Communication journey dashboard</p>
+          <div className="flex items-center gap-3">
+            <button onClick={() => navigate('/')} className="text-gray-400 hover:text-gray-700"><ArrowLeft className="w-5 h-5" /></button>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-teal-600">Progress intelligence</p>
+              <h1 className="text-2xl font-bold text-gray-900">{data.child_name}'s Communication Progress</h1>
+            </div>
+          </div>
+          <p className="text-gray-500 text-sm mt-2 sm:ml-8">Confirmed signals, trends, urgency, and caregiver feedback stored privately on this device.</p>
+        </div>
+        <div className="flex gap-2 sm:flex-shrink-0">
+          <button onClick={() => navigate(`/chat/${childId}`)} className="inline-flex items-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-black">
+            <Bot className="w-4 h-4" /> Ask Gemma
+          </button>
+          <button onClick={() => navigate(`/therapist/${childId}`)} className="inline-flex items-center gap-2 bg-teal-50 text-teal-700 px-4 py-2 rounded-xl text-sm font-medium hover:bg-teal-100">
+            <UserRound className="w-4 h-4" /> Care Team
+          </button>
         </div>
       </div>
 

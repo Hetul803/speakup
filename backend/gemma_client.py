@@ -14,6 +14,8 @@ OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "").strip()
 # Gemma 4 Ollama model names to try in order of preference
 GEMMA4_MODELS = [
     "speakup-gemma4",
+    "gemma4:e2b-it-q4_K_M",
+    "gemma4:e2b-it",
     "gemma4:31b",
     "gemma4:26b",
     "gemma4:e4b",
@@ -21,10 +23,17 @@ GEMMA4_MODELS = [
     "gemma4",
     "hf.co/unsloth/gemma-4-E4B-it-GGUF",
     "hf.co/unsloth/gemma-4-E2B-it-GGUF",
-    "gemma3:12b",
-    "gemma3:9b",
-    "gemma3:4b",
 ]
+
+def is_gemma4_model(name: str | None) -> bool:
+    if not name:
+        return False
+    normalized = name.lower()
+    return (
+        "gemma4" in normalized
+        or "gemma-4" in normalized
+        or "speakup-gemma4" in normalized
+    )
 
 def strip_data_url(image_b64: str | None) -> str | None:
     if not image_b64:
@@ -88,10 +97,10 @@ class OllamaClient:
 
     async def describe_image(self, image_b64: str, context: str = "") -> str:
         """Use Gemma 4 multimodal to describe what is in the image"""
-        prompt = f"""Look at this image carefully. A non-verbal child is pointing at or near something in this scene.
+        prompt = f"""Look at this image carefully. A minimally speaking or non-speaking communicator may be pointing at or near something in this scene.
 
 Identify:
-1. The main object the child is likely pointing at or interested in
+1. The main object the communicator is likely pointing at or interested in
 2. Any people visible
 3. The general environment/setting
 
@@ -128,15 +137,18 @@ SCENE: [one sentence describing what you see]"""
             return []
 
     async def get_best_model(self) -> str:
-        """Auto-detect best available Gemma 4 model"""
+        """Auto-detect best available Gemma 4 model. Never fall back to non-Gemma models."""
         available = await self.list_models()
-        if self.model and self.model in available:
+        gemma_models = [name for name in available if is_gemma4_model(name)]
+        if self.model and self.model in available and is_gemma4_model(self.model):
             return self.model
         for preferred in GEMMA4_MODELS:
-            for avail in available:
+            for avail in gemma_models:
                 if preferred.lower() in avail.lower():
                     return avail
-        return available[0] if available else (self.model or "gemma4")
+        if self.model and is_gemma4_model(self.model):
+            return self.model
+        return "gemma4:e2b-it-q4_K_M"
 
     async def resolve_model(self) -> str:
         if self._resolved_model:
@@ -147,15 +159,12 @@ SCENE: [one sentence describing what you see]"""
     async def runtime_summary(self) -> dict:
         connected = await self.health_check()
         models = await self.list_models() if connected else []
+        gemma_models = [name for name in models if is_gemma4_model(name)]
         active = await self.get_best_model() if connected else (self.model or "gemma4")
-        is_gemma4 = connected and (
-            "gemma4" in active.lower()
-            or "gemma-4" in active.lower()
-            or "speakup-gemma4" in active.lower()
-        )
+        is_gemma4 = connected and active in models and is_gemma4_model(active)
         return {
             "connected": connected,
-            "available_models": models,
+            "available_models": gemma_models,
             "active_model": active,
             "gemma4_ready": is_gemma4,
             "multimodal_ready": connected and is_gemma4,

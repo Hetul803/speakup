@@ -32,7 +32,7 @@ export default function IntentResult({ result, onAskConfirmation, autoSpeak = tr
     <div className={`speak-glow rounded-3xl bg-gradient-to-br ${gradient} p-6 text-white slide-up`}>
       {isUrgent && (
         <div className="flex items-center gap-2 bg-red-500/30 rounded-xl px-3 py-2 mb-3 text-sm font-medium">
-          <AlertTriangle className="w-4 h-4" /> Child may need immediate attention
+          <AlertTriangle className="w-4 h-4" /> May need immediate attention
         </div>
       )}
 

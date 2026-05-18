@@ -7,14 +7,7 @@ import SoundRecorder from '../components/SoundRecorder'
 import CameraCapture from '../components/CameraCapture'
 import IntentResult from '../components/IntentResult'
 import ConfirmationModal from '../components/ConfirmationModal'
-import { Sparkles, RotateCcw, ArrowLeft, BarChart2, ChevronDown, ChevronUp, AlertTriangle, Camera } from 'lucide-react'
-
-const LOADING_MESSAGES = [
-  "Reading signals...",
-  "Checking Emma's memory...",
-  "Gemma 4 is thinking...",
-  "Almost there...",
-]
+import { Sparkles, RotateCcw, ArrowLeft, BarChart2, ChevronDown, ChevronUp, AlertTriangle, Camera, Bot } from 'lucide-react'
 
 export default function CommunicationScreen() {
   const { childId } = useParams()
@@ -42,7 +35,6 @@ export default function CommunicationScreen() {
   useEffect(() => {
     childrenAPI.get(childId).then(c => {
       setChild(c)
-      // Update loading messages with child name
     }).catch(() => navigate('/'))
   }, [childId])
 
@@ -75,7 +67,7 @@ export default function CommunicationScreen() {
     setResult(null)
     setLearningMessage(null)
     if (!isRetry) setRetryCount(0)
-    startLoadingAnimation(child?.name || 'child')
+    startLoadingAnimation(child?.name || 'this profile')
 
     try {
       const payload = {
@@ -142,9 +134,9 @@ export default function CommunicationScreen() {
   const inputCount = [selectedCard, selectedGesture, selectedSound, selectedObject, cameraImageB64].filter(Boolean).length
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
+    <div className="max-w-3xl mx-auto px-4 py-6">
       {/* Header */}
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-3">
           <button onClick={() => navigate('/')} className="text-gray-400 hover:text-gray-700 p-1">
             <ArrowLeft className="w-5 h-5" />
@@ -155,14 +147,28 @@ export default function CommunicationScreen() {
           </div>
           <div>
             <h1 className="font-bold text-gray-900">{child.name}</h1>
-            <p className="text-xs text-gray-400">Tap signals → Gemma 4 interprets</p>
+            <p className="text-xs text-gray-500">Signals in, spoken phrase out</p>
           </div>
         </div>
-        <button onClick={() => navigate(`/dashboard/${childId}`)}
-          className="flex items-center gap-1 text-sm text-indigo-600 hover:bg-indigo-50 px-3 py-2 rounded-xl transition-colors">
-          <BarChart2 className="w-4 h-4" /> Progress
-        </button>
+        <div className="flex gap-2">
+          <button onClick={() => navigate(`/chat/${childId}`)}
+            className="flex items-center gap-1 text-sm text-gray-800 bg-white border border-gray-200 hover:bg-gray-50 px-3 py-2 rounded-xl transition-colors">
+            <Bot className="w-4 h-4" /> Chat
+          </button>
+          <button onClick={() => navigate(`/dashboard/${childId}`)}
+            className="flex items-center gap-1 text-sm text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-3 py-2 rounded-xl transition-colors">
+            <BarChart2 className="w-4 h-4" /> Progress
+          </button>
+        </div>
       </div>
+
+      <section className="bg-white border border-gray-100 rounded-2xl p-4 mb-5 shadow-sm">
+        <p className="text-xs font-semibold uppercase tracking-wide text-teal-600 mb-1">Communication moment</p>
+        <h2 className="font-bold text-gray-950">Build the current signal set, then let Gemma 4 check memory and speak a likely phrase.</h2>
+        <p className="text-sm text-gray-500 mt-1">
+          Use visual cards, gestures, sounds, and optional camera context. Camera preview and audio waveform can be hidden for sensory comfort.
+        </p>
+      </section>
 
       {/* Active signal chips */}
       {inputCount > 0 && (
@@ -270,11 +276,11 @@ export default function CommunicationScreen() {
           <div className="flex items-start gap-2">
             <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
-              <p className="font-medium text-sm">Connection error</p>
+              <p className="font-medium text-sm">Gemma connection error</p>
               <p className="text-xs mt-1">{error}</p>
               {error.includes('Ollama') && (
                 <p className="text-xs mt-1 font-mono bg-red-100 rounded px-2 py-1 mt-2">
-                  Run: ollama serve && ollama pull hf.co/unsloth/gemma-4-E4B-it-GGUF
+                  Run: ollama serve && ollama pull gemma4:e2b-it-q4_K_M
                 </p>
               )}
             </div>

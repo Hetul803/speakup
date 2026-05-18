@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from database import engine, Base
-from routers import children, interactions, memory, dashboard, demo
+from routers import children, interactions, memory, dashboard, demo, chat
 import logging
 from sqlalchemy import text, inspect
 
@@ -51,13 +51,13 @@ app.include_router(interactions.router, prefix="/api/interactions", tags=["inter
 app.include_router(memory.router, prefix="/api/memory", tags=["memory"])
 app.include_router(dashboard.router, prefix="/api/dashboard", tags=["dashboard"])
 app.include_router(demo.router, prefix="/api/demo", tags=["demo"])
+app.include_router(chat.router, prefix="/api/chat", tags=["chat"])
 
 @app.get("/")
 def root():
     return {"status": "SpeakUp API v2.0 running", "ai": "Gemma 4 via Ollama"}
 
-@app.get("/health")
-async def health():
+async def _health_payload():
     from gemma_client import OllamaClient
     client = OllamaClient()
     runtime = await client.runtime_summary()
@@ -68,11 +68,19 @@ async def health():
         "active_model": runtime["active_model"],
         "gemma4_ready": runtime["gemma4_ready"],
         "multimodal": runtime["multimodal_ready"],
-        "storage": "local SQLite — zero cloud",
+        "storage": "local SQLite, no cloud inference",
         "privacy": "100% on-device",
         "recommended_models": [
             "speakup-gemma4",
+            "gemma4:e2b-it-q4_K_M",
             "gemma4:e4b",
-            "hf.co/unsloth/gemma-4-E4B-it-GGUF",
         ],
     }
+
+@app.get("/health")
+async def health():
+    return await _health_payload()
+
+@app.get("/api/health")
+async def api_health():
+    return await _health_payload()

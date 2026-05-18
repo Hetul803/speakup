@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useCamera } from '../hooks/useCamera'
 import { interactionsAPI } from '../api/client'
-import { Camera, CameraOff, Aperture, X, Loader, Sparkles } from 'lucide-react'
+import { Camera, CameraOff, Aperture, X, Loader, Sparkles, Eye, EyeOff } from 'lucide-react'
 
 const OBJECT_PRESETS = [
   'cup / drink', 'food / snack', 'toy', 'book', 'tablet / phone',
@@ -10,10 +10,11 @@ const OBJECT_PRESETS = [
 ]
 
 export default function CameraCapture({ onObjectDetected, onImageCaptured, onAnalysis, selectedObject, childId }) {
-  const { videoRef, active, error, capturedImage, startCamera, stopCamera, captureFrame, clearCapture } = useCamera()
+  const { setVideoRef, active, error, capturedImage, startCamera, stopCamera, captureFrame, clearCapture } = useCamera()
   const [analyzing, setAnalyzing] = useState(false)
   const [analysisResult, setAnalysisResult] = useState(null)
   const [analyzeError, setAnalyzeError] = useState(null)
+  const [showPreview, setShowPreview] = useState(true)
 
   useEffect(() => () => stopCamera(), [])
 
@@ -66,9 +67,19 @@ export default function CameraCapture({ onObjectDetected, onImageCaptured, onAna
 
       {/* Camera */}
       <div className="border-t border-gray-100 pt-3">
-        <div className="flex items-center gap-1 mb-2">
-          <Sparkles className="w-3 h-3 text-indigo-500" />
-          <p className="text-xs text-gray-500">Camera → Gemma 4 identifies object automatically</p>
+        <div className="flex items-center justify-between gap-2 mb-2">
+          <div className="flex items-center gap-1">
+            <Sparkles className="w-3 h-3 text-indigo-500" />
+            <p className="text-xs text-gray-500">Camera context helps Gemma interpret pointing.</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowPreview(v => !v)}
+            className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-indigo-600 px-2 py-1 rounded-lg hover:bg-indigo-50"
+          >
+            {showPreview ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
+            {showPreview ? 'Preview on' : 'Preview off'}
+          </button>
         </div>
 
         {error && <p className="text-red-500 text-xs mb-2">{error}</p>}
@@ -76,7 +87,14 @@ export default function CameraCapture({ onObjectDetected, onImageCaptured, onAna
 
         {capturedImage ? (
           <div className="relative mb-2">
-            <img src={capturedImage} alt="Captured" className="w-full rounded-xl h-36 object-cover" />
+            {showPreview ? (
+              <img src={capturedImage} alt="Captured" className="w-full rounded-xl h-48 object-cover bg-gray-950" />
+            ) : (
+              <div className="h-48 rounded-xl bg-gray-950 text-white/80 flex flex-col items-center justify-center text-sm">
+                <EyeOff className="w-5 h-5 mb-2" />
+                Preview hidden. Frame is attached for Gemma.
+              </div>
+            )}
             <button onClick={() => { clearCapture(); setAnalysisResult(null); onObjectDetected(null); onImageCaptured?.(null); onAnalysis?.(null) }}
               className="absolute top-2 right-2 bg-black/50 text-white p-1 rounded-full hover:bg-black/70">
               <X className="w-3 h-3" />
@@ -84,14 +102,24 @@ export default function CameraCapture({ onObjectDetected, onImageCaptured, onAna
           </div>
         ) : active ? (
           <div>
-            <video ref={videoRef} autoPlay playsInline muted className="w-full rounded-xl h-36 object-cover bg-black" />
+            {showPreview ? (
+              <video ref={setVideoRef} autoPlay playsInline muted className="w-full rounded-xl h-48 object-cover bg-gray-950" />
+            ) : (
+              <>
+                <video ref={setVideoRef} autoPlay playsInline muted className="sr-only" />
+                <div className="h-48 rounded-xl bg-gray-950 text-white/80 flex flex-col items-center justify-center text-sm">
+                  <EyeOff className="w-5 h-5 mb-2" />
+                  Preview hidden for sensory comfort.
+                </div>
+              </>
+            )}
             <div className="flex gap-2 mt-2">
               <button onClick={handleCapture}
                 className="flex-1 flex items-center justify-center gap-1 bg-indigo-600 text-white py-2 rounded-xl text-sm font-medium hover:bg-indigo-700">
                 <Aperture className="w-4 h-4" /> Capture & Analyze
               </button>
-              <button onClick={stopCamera} className="bg-gray-100 text-gray-700 px-3 py-2 rounded-xl text-sm">
-                <CameraOff className="w-4 h-4" />
+              <button onClick={stopCamera} className="flex items-center justify-center gap-1 bg-gray-100 text-gray-700 px-3 py-2 rounded-xl text-sm hover:bg-gray-200">
+                <CameraOff className="w-4 h-4" /> Stop
               </button>
             </div>
           </div>

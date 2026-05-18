@@ -12,7 +12,8 @@ export const childrenAPI = {
   create: (data) => api.post('/children/', data),
   update: (id, data) => api.put(`/children/${id}`, data),
   delete: (id) => api.delete(`/children/${id}`),
-  addNote: (id, note, category) => api.post(`/children/${id}/notes`, { child_id: id, note, category })
+  addNote: (id, note, category) => api.post(`/children/${id}/notes`, { child_id: id, note, category }),
+  notes: (id, category) => api.get(`/children/${id}/notes${category ? `?category=${encodeURIComponent(category)}` : ''}`)
 }
 
 export const interactionsAPI = {
@@ -32,6 +33,10 @@ export const dashboardAPI = { get: (child_id) => api.get(`/dashboard/${child_id}
 
 export const demoAPI = {
   seed: () => api.post('/demo/seed')
+}
+
+export const chatAPI = {
+  send: (data) => api.post('/chat/', data)
 }
 
 export default api

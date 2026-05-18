@@ -1,40 +1,32 @@
-# SpeakUp Benchmarks
+# SpeakUp Validation Snapshot
 
-## Inference Speed
+This file records the local demo validation used for the Kaggle submission. It avoids clinical or fine-tuning claims unless those runs are completed and documented.
 
-| Hardware | Model | Avg Response Time |
-|----------|-------|-----------------|
-| M2 MacBook Pro | Gemma 4 9B Q4 | 3.2s |
-| RTX 4090 | Gemma 4 27B Q4 | 2.1s |
-| NVIDIA A100 | Gemma 4 27B FP16 | 0.8s |
-| Raspberry Pi 5 | Gemma 4 E2B Q4 | 8.4s |
+## Current Local Runtime
 
-## JSON Reliability
+| Check | Result |
+|-------|--------|
+| Ollama reachable | Pass |
+| Active model | `gemma4:e2b-it-q4_K_M` |
+| Non-Gemma fallback | Disabled |
+| Frontend production build | Pass |
+| Backend import/compile check | Pass |
+| Demo data | Synthetic only |
 
-| Metric | Score |
-|--------|-------|
-| Valid JSON output rate | 98.4% |
-| Required fields present | 99.1% |
-| Confidence score in range | 100% |
-| Urgency flag accuracy (tested) | 94.2% |
+## Smoke Tests
 
-## Accuracy (simulated evaluation)
+| Flow | Result |
+|------|--------|
+| `/health` | Reports Gemma 4 ready |
+| Demo seed | Creates Emma Demo with synthetic patterns and care-team contact |
+| Intent prediction | Returns structured JSON from `gemma4:e2b-it-q4_K_M` |
+| Gemma chat signal | Uses memory: `Soft "mmm" -> I want water` |
+| Caregiver progress chat | Summarizes confirmed demo progress |
+| Camera controls | Preview toggle, stop button, and hidden-preview mode present |
+| Sound controls | MediaRecorder, waveform toggle, and stop button present |
 
-| Signals Provided | Accuracy (no memory) | Accuracy (with 10+ confirmations) |
-|-----------------|---------------------|----------------------------------|
-| Single card only | 91% | 95% |
-| Gesture only | 67% | 88% |
-| Sound only | 59% | 84% |
-| Multi-signal (3+) | 78% | 94% |
-| Full context | 82% | 97% |
+## Submission Notes
 
-## Fine-tuned vs Base Model
-
-| Metric | Base Gemma 4 | SpeakUp Fine-tuned |
-|--------|-------------|-------------------|
-| JSON success rate | 91% | 98.4% |
-| AAC-specific accuracy | 72% | 89% |
-| Confidence calibration | 0.71 | 0.89 |
-| Response time | 3.2s | 2.9s |
-
-*Benchmarks conducted on simulated scenarios. Real-world accuracy improves with caregiver confirmations.*
+- Do not claim clinical accuracy. SpeakUp is an assistive communication companion.
+- Do not claim Unsloth fine-tuning is complete unless the Colab run is finished and loss/export proof is added.
+- The current model integration is Gemma 4 through Ollama. The repository also includes a reproducible Unsloth LoRA pipeline.

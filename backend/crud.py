@@ -327,3 +327,9 @@ def add_caregiver_note(db: Session, child_id: int, note: str, category: str = "g
     db.commit()
     db.refresh(n)
     return n
+
+def get_caregiver_notes(db: Session, child_id: int, category: str = None, limit: int = 20):
+    query = db.query(CaregiverNote).filter(CaregiverNote.child_id == child_id)
+    if category:
+        query = query.filter(CaregiverNote.category == category)
+    return query.order_by(desc(CaregiverNote.created_at)).limit(limit).all()

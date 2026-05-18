@@ -43,8 +43,12 @@ export default function ProfileSetup() {
       <button onClick={() => navigate('/')} className="flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-6">
         <ArrowLeft className="w-4 h-4" /> Back
       </button>
-      <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">{isEdit ? 'Edit Profile' : 'New Child Profile'}</h1>
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+        <p className="text-xs font-semibold uppercase tracking-wide text-teal-600 mb-2">Private communication memory</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">{isEdit ? 'Edit Profile' : 'New Communicator Profile'}</h1>
+        <p className="text-sm text-gray-500 mb-6">
+          SpeakUp supports minimally speaking and non-speaking communicators of any age. Add only the context caregivers want Gemma to remember.
+        </p>
 
         {/* Avatar Preview */}
         <div className="flex justify-center mb-6">
@@ -67,7 +71,7 @@ export default function ProfileSetup() {
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Child's Name *</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
             <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
               className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
               placeholder="e.g. Emma" />
@@ -76,13 +80,13 @@ export default function ProfileSetup() {
             <label className="block text-sm font-medium text-gray-700 mb-1">Age (optional)</label>
             <input type="number" value={form.age} onChange={e => setForm(f => ({ ...f, age: e.target.value }))}
               className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none"
-              placeholder="e.g. 5" min="1" max="18" />
+              placeholder="e.g. 8" min="1" max="120" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Notes for caregivers (optional)</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Communication notes (optional)</label>
             <textarea value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
               className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none resize-none"
-              rows={3} placeholder="e.g. Loves blocks. Gets overwhelmed by loud sounds. Favorite drink is apple juice." />
+              rows={3} placeholder="e.g. Loves blocks. Gets overwhelmed by loud sounds. Soft mmm often means drink." />
           </div>
         </div>
 

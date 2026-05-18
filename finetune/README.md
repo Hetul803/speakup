@@ -43,7 +43,7 @@ OLLAMA_MODEL=speakup-gemma4
 `dataset/aac_training.jsonl` — 61 expert-crafted AAC communication scenarios.
 The dataset teaches the model to:
 - Interpret gesture + sound + object combinations
-- Apply child-specific memory patterns
+- Apply profile-specific memory patterns
 - Assign accurate confidence scores
 - Detect urgency and emotion
 - Return structured JSON reliably

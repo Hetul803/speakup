@@ -11,7 +11,7 @@ router = APIRouter()
 async def predict(request: schemas.PredictRequest, db: Session = Depends(get_db)):
     child = crud.get_child(db, request.child_id)
     if not child:
-        raise HTTPException(status_code=404, detail="Child not found")
+        raise HTTPException(status_code=404, detail="Profile not found")
 
     has_input = any([
         request.gesture_label, request.sound_label, request.object_detected,
@@ -74,7 +74,7 @@ async def describe_image(request: schemas.ImageDescribeRequest, db: Session = De
     """Standalone endpoint: use Gemma 4 multimodal to identify what is in a captured image"""
     child = crud.get_child(db, request.child_id)
     if not child:
-        raise HTTPException(status_code=404, detail="Child not found")
+        raise HTTPException(status_code=404, detail="Profile not found")
     result = await describe_image_only(request.image_b64, child.name)
     return result
 

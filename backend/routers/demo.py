@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import get_db
-from models import Child, InteractionLog
+from models import CaregiverNote, Child, InteractionLog
 import crud
 import schemas
 
@@ -87,16 +87,38 @@ SCENARIOS = [
     },
 ]
 
+DEMO_NOTE = (
+    "Emma often uses a soft mmm sound with cups for drink requests and covers her ears "
+    "when sound is painful."
+)
+
+THERAPIST_CONTACT = (
+    '{"name":"Dr. Maya Rivera","role":"Speech-language pathologist",'
+    '"organization":"BrightPath Communication Clinic","email":"maya.rivera@example.com",'
+    '"phone":"(555) 014-2218","goal":"Increase reliable independent requests using sounds, '
+    'gestures, and visual cards."}'
+)
+
+def ensure_demo_note(db: Session, child_id: int, category: str, note: str):
+    existing = db.query(CaregiverNote).filter(
+        CaregiverNote.child_id == child_id,
+        CaregiverNote.category == category,
+    ).first()
+    if not existing:
+        crud.add_caregiver_note(db, child_id, note, category)
+
 @router.post("/seed")
 def seed_demo(db: Session = Depends(get_db)):
     child = db.query(Child).filter(Child.name == DEMO_NAME).first()
-    if not child:
-        child = crud.create_child(db, schemas.ChildCreate(
-            name=DEMO_NAME,
-            age=6,
-            avatar_color="#0f766e",
-            notes="Synthetic demo profile for Kaggle judges. No real child data."
-        ))
+    if child:
+        crud.delete_child(db, child.id)
+
+    child = crud.create_child(db, schemas.ChildCreate(
+        name=DEMO_NAME,
+        age=6,
+        avatar_color="#0f766e",
+        notes="Synthetic demo profile for Kaggle judges. No real person data."
+    ))
 
     existing_count = db.query(InteractionLog).filter(InteractionLog.child_id == child.id).count()
     if existing_count < len(SCENARIOS):
@@ -119,12 +141,9 @@ def seed_demo(db: Session = Depends(get_db)):
                 model_name="synthetic-demo-seed",
             )
             crud.confirm_interaction(db, log.id, scenario["confirmed_intent"], scenario["was_correct"])
-        crud.add_caregiver_note(
-            db,
-            child.id,
-            "Emma often uses a soft mmm sound with cups for drink requests and covers her ears when sound is painful.",
-            "demo"
-        )
+
+    ensure_demo_note(db, child.id, "demo", DEMO_NOTE)
+    ensure_demo_note(db, child.id, "therapist_contact", THERAPIST_CONTACT)
 
     return {
         "child_id": child.id,

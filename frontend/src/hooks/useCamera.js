@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 
 export function useCamera() {
   const videoRef = useRef(null)
@@ -7,10 +7,33 @@ export function useCamera() {
   const [error, setError] = useState(null)
   const [capturedImage, setCapturedImage] = useState(null)
 
+  useEffect(() => {
+    if (active && videoRef.current && streamRef.current && videoRef.current.srcObject !== streamRef.current) {
+      videoRef.current.srcObject = streamRef.current
+      videoRef.current.play().catch(() => {})
+    }
+  }, [active])
+
+  const setVideoRef = useCallback((node) => {
+    videoRef.current = node
+    if (node && streamRef.current && node.srcObject !== streamRef.current) {
+      node.srcObject = streamRef.current
+      node.play().catch(() => {})
+    }
+  }, [])
+
   const startCamera = useCallback(async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-      if (videoRef.current) { videoRef.current.srcObject = stream; streamRef.current = stream; setActive(true); setError(null) }
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+      })
+      streamRef.current = stream
+      setActive(true)
+      setError(null)
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream
+        await videoRef.current.play().catch(() => {})
+      }
     } catch (err) { setError('Camera not available: ' + err.message) }
   }, [])
 
@@ -20,7 +43,7 @@ export function useCamera() {
   }, [])
 
   const captureFrame = useCallback(() => {
-    if (!videoRef.current) return null
+    if (!videoRef.current || !videoRef.current.videoWidth || !videoRef.current.videoHeight) return null
     const canvas = document.createElement('canvas')
     canvas.width = videoRef.current.videoWidth
     canvas.height = videoRef.current.videoHeight
@@ -30,5 +53,5 @@ export function useCamera() {
     return dataUrl
   }, [])
 
-  return { videoRef, active, error, capturedImage, startCamera, stopCamera, captureFrame, clearCapture: () => setCapturedImage(null) }
+  return { videoRef, setVideoRef, active, error, capturedImage, startCamera, stopCamera, captureFrame, clearCapture: () => setCapturedImage(null) }
 }

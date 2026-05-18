@@ -9,7 +9,7 @@ router = APIRouter()
 def get_memory(child_id: int, db: Session = Depends(get_db)):
     child = crud.get_child(db, child_id)
     if not child:
-        raise HTTPException(status_code=404, detail="Child not found")
+        raise HTTPException(status_code=404, detail="Profile not found")
     return crud.get_child_memory(db, child_id)
 
 @router.get("/{child_id}/patterns")
