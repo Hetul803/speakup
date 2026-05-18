@@ -66,7 +66,7 @@ export default function TherapistView() {
       setHistory(h)
       setProfessionalNotes(notes)
       setContact(parseContact(contactNotes))
-    }).catch(() => navigate('/'))
+    }).catch(() => navigate('/profiles'))
   }, [childId])
 
   async function saveNote() {
@@ -125,7 +125,7 @@ export default function TherapistView() {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div className="flex items-center gap-3">
-          <button onClick={() => navigate('/')} className="text-gray-400 hover:text-gray-700"><ArrowLeft className="w-5 h-5" /></button>
+          <button onClick={() => navigate('/profiles')} className="text-gray-400 hover:text-gray-700"><ArrowLeft className="w-5 h-5" /></button>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-teal-600">Care team workspace</p>
             <h1 className="text-2xl font-bold text-gray-950">{child.name}'s Communication Plan</h1>

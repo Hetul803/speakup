@@ -9,6 +9,7 @@ import ParentCenter from './pages/ParentCenter'
 import ChildDevice from './pages/ChildDevice'
 import AboutSpeakUp from './pages/AboutSpeakUp'
 import Navbar from './components/Navbar'
+import FooterDisclaimer from './components/FooterDisclaimer'
 
 export default function App() {
   return (
@@ -16,8 +17,9 @@ export default function App() {
       <div className="min-h-screen calm-app-bg">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<AboutSpeakUp />} />
           <Route path="/about" element={<AboutSpeakUp />} />
+          <Route path="/profiles" element={<Home />} />
           <Route path="/parent" element={<ParentCenter />} />
           <Route path="/device/:childId" element={<ChildDevice />} />
           <Route path="/communicate/:childId" element={<CommunicationScreen />} />
@@ -27,6 +29,7 @@ export default function App() {
           <Route path="/profile/:childId/edit" element={<ProfileSetup />} />
           <Route path="/therapist/:childId" element={<TherapistView />} />
         </Routes>
+        <FooterDisclaimer />
       </div>
     </BrowserRouter>
   )

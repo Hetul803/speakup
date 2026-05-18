@@ -103,7 +103,7 @@ export default function ParentCenter() {
     <div className="max-w-7xl mx-auto px-4 py-6 relative">
       <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-6">
         <div>
-          <button onClick={() => navigate('/')} className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm mb-3">
+          <button onClick={() => navigate('/profiles')} className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm mb-3">
             <ArrowLeft className="w-4 h-4" /> Back to profiles
           </button>
           <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">Parent command center</p>

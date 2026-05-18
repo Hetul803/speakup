@@ -24,7 +24,7 @@ export default function Dashboard() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <div className="flex items-center gap-3">
-            <button onClick={() => navigate('/')} className="text-gray-400 hover:text-gray-700"><ArrowLeft className="w-5 h-5" /></button>
+            <button onClick={() => navigate('/profiles')} className="text-gray-400 hover:text-gray-700"><ArrowLeft className="w-5 h-5" /></button>
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-teal-600">Progress intelligence</p>
               <h1 className="text-2xl font-bold text-gray-900">{data.child_name}'s Communication Progress</h1>

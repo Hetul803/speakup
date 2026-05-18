@@ -21,14 +21,15 @@ Deadline: May 18, 2026 at 11:59 PM UTC (6:59 PM CDT in Chicago).
 
 ## Demo Flow
 
-1. Open the app and click `What is SpeakUp?` to explain who it helps.
-2. Open Parent Center, then show Emma Demo and Noah Demo with separate care plans, alerts, and dedicated device links.
-3. Open Emma's dedicated device mode to show one iPad focused on one communicator.
-4. Tap one common card and show SpeakUp asking Gemma 4, speaking the phrase, and offering caregiver confirmation.
-5. Show the always-visible Gemma chat panel in dedicated device mode.
-6. Open optional audio/camera tools only after the simple one-tap flow is clear.
-7. Show progress and care-team export.
-8. End with local Gemma 4/Ollama proof and the T4 fine-tuning notebook.
+1. Open the app on the About page to explain who SpeakUp helps.
+2. Open Profiles to show the named communicator list.
+3. Open Parent Center, then show Emma Demo and Noah Demo with separate care plans, alerts, and dedicated device links.
+4. Open Emma's dedicated device mode to show one iPad focused on one communicator.
+5. Tap one common card and show SpeakUp asking Gemma 4, speaking the phrase, and offering caregiver confirmation.
+6. Show the always-visible Gemma chat panel in dedicated device mode.
+7. Open optional audio/camera tools only after the simple one-tap flow is clear.
+8. Show progress and care-team export.
+9. End with local Gemma 4/Ollama proof and the T4 fine-tuning notebook.
 
 ## Compliance Notes
 

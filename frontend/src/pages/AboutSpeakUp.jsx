@@ -50,7 +50,7 @@ export default function AboutSpeakUp() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 relative">
-      <button onClick={() => navigate('/')} className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm mb-4">
+      <button onClick={() => navigate('/profiles')} className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm mb-4">
         <ArrowLeft className="w-4 h-4" /> Back to profiles
       </button>
 
@@ -63,8 +63,16 @@ export default function AboutSpeakUp() {
             SpeakUp helps people who cannot always rely on speech turn personal signals into words.
           </h1>
           <p className="text-gray-700 mt-5 text-lg max-w-3xl">
-            It is not only for autistic children. Autism is one important use case, but SpeakUp is designed for minimally speaking and non-speaking communicators of any age, and for the caregivers who help interpret their needs every day.
+            SpeakUp supports autistic and neurodivergent communicators, nonspeaking and minimally speaking people, AAC users, people with aphasia or apraxia, and families or care teams who need a clearer way to understand everyday signals.
           </p>
+          <div className="flex flex-wrap gap-2 mt-6">
+            <button onClick={() => navigate('/profiles')} className="bg-teal-600 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-teal-700">
+              View Profiles
+            </button>
+            <button onClick={() => navigate('/parent')} className="bg-white border border-teal-100 text-teal-800 px-4 py-2 rounded-xl text-sm font-bold hover:bg-teal-50">
+              Open Parent Center
+            </button>
+          </div>
         </div>
       </section>
 
